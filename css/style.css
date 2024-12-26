@@ -1,0 +1,68 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Sticky Header */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #343a40;
+    color: white;
+}
+
+/* Section Styles */
+section {
+    padding: 40px 0;
+}
+
+/* Visualization Placeholder */
+.visualization {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    text-align: center;
+    padding: 30px;
+    margin-top: 20px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+/* Slideshow Section Styling */
+#slideshow {
+    margin-bottom: 0px;
+    padding: 0; /* Remove all padding from the section */
+}
+
+/* Force consistent height for carousel */
+.carousel-inner {
+    height: 500px; /* Fixed height for the carousel */
+    display: flex;
+    align-items: center; /* Vertically center the images */
+    overflow: hidden;
+}
+
+.image-wrapper {
+    height: 500px; /* Enforces consistent height for all images */
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Horizontally centers the image */
+    align-items: center; /* Vertically centers the image */
+}
+
+.carousel-image {
+    width: 100%; /* Ensures the image spans the container width */
+    height: 100%; /* Ensures the image covers the entire height of the wrapper */
+    object-fit: cover; /* Ensure the image covers the wrapper while preserving aspect ratio */
+}
