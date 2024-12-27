@@ -66,3 +66,56 @@ footer a {
     height: 100%; /* Ensures the image covers the entire height of the wrapper */
     object-fit: cover; /* Ensure the image covers the wrapper while preserving aspect ratio */
 }
+
+
+/* 
+Section 1: Global Trends
+*/
+
+#global-trends {
+    background-color: #f8f9fa;
+}
+
+.visualization {
+    height: 400px; /* Fixed height for visualizations */
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style for chart captions */
+#global-trends p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+
+#global-trends strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Set consistent height for chart containers */
+.chart-container {
+    height: 400px; /* Fixed height for both choropleth map and bar chart */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* Optional background for visual consistency */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Ensure row aligns content properly */
+.row.d-flex {
+    display: flex;
+}
+
+/* Section 2 */
+/* Progress Over Time Section */
+
+/* Section 3 */
+/* Health Outcomes Section */

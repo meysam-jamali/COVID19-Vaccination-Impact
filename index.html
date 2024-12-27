@@ -93,60 +93,112 @@
         </div>
     </section>
 
+    <!-- Section 1 -->
     <!-- Global Trends Section -->
-    <section id="global-trends" class="bg-white">
+    <section id="global-trends" class="bg-light py-5">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h2>Global Overview of Vaccination Trends</h2>
-                    <p>Gain a high-level understanding of global vaccination efforts through interactive visualizations.</p>
+            <h2 class="text-center">Global Overview of Vaccination Trends</h2>
+            <p class="text-center">
+                This section visualizes global vaccination efforts using a choropleth map and a bar chart. The map shows vaccination rates by country, while the chart compares regional vaccination coverage.
+            </p>
+            <div class="row mt-4 d-flex align-items-stretch">
+                <!-- Choropleth Map -->
+                <div class="col-md-6 d-flex flex-column">
+                    <h4 class="text-center">Choropleth Map</h4>
+                    <div id="choropleth-map" class="chart-container"></div>
+                    <p class="text-center mt-2">
+                        <strong>Explanation:</strong> The map uses shades of blue to represent vaccination rates. 
+                        <span style="color: lightblue;">Lighter blue</span> indicates lower vaccination rates, while 
+                        <span style="color: darkblue;">darker blue</span> indicates higher vaccination rates. 
+                        Hover over a country to see the exact percentage of the population vaccinated.
+                    </p>
                 </div>
-                <div class="col-md-6">
-                    <div class="visualization">
-                        <p>[Visualization: Choropleth Map]</p>
+    
+                <!-- Bar Chart -->
+                <div class="col-md-6 d-flex flex-column">
+                    <h4 class="text-center">Bar Chart</h4>
+                    <div class="chart-container">
+                        <canvas id="bar-chart"></canvas>
                     </div>
+                    <p class="text-center mt-2">
+                        <strong>Explanation:</strong> This chart compares average vaccination coverage across regions.
+                        The height of each bar indicates the percentage of vaccinated people in the region.
+                        All bars are styled in blue for consistency.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
-
+    
+    <!-- Section 2 -->
     <!-- Progress Over Time Section -->
-    <section id="progress-over-time" class="bg-light">
+    <section id="progress-over-time" class="bg-light py-5">
         <div class="container">
             <h2 class="text-center">Vaccination Progress Over Time</h2>
-            <p class="text-center">Track how vaccinations have evolved over time.</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="visualization">
-                        <p>[Visualization: Line Chart]</p>
+            <p class="text-center">
+                Track the progress of global vaccination efforts and how they have evolved over time.
+            </p>
+            <div class="row mt-4 d-flex align-items-stretch">
+                <!-- Line Chart -->
+                <div class="col-md-6 d-flex flex-column">
+                    <h4 class="text-center">Line Chart</h4>
+                    <div id="line-chart-container" class="chart-container">
+                        <canvas id="line-chart"></canvas>
                     </div>
+                    <p class="text-center mt-2">
+                        <strong>Explanation:</strong> The line chart illustrates the cumulative number of vaccinations administered globally over time. 
+                        It helps identify trends and key milestones.
+                    </p>
                 </div>
-                <div class="col-md-6">
-                    <div class="visualization">
-                        <p>[Visualization: Stacked Area Chart]</p>
+    
+                <!-- Stacked Area Chart -->
+                <div class="col-md-6 d-flex flex-column">
+                    <h4 class="text-center">Stacked Area Chart</h4>
+                    <div id="stacked-area-chart-container" class="chart-container">
+                        <canvas id="stacked-area-chart"></canvas>
                     </div>
+                    <p class="text-center mt-2">
+                        <strong>Explanation:</strong> The stacked area chart shows the proportion of fully vaccinated, partially vaccinated, 
+                        and booster doses over time. It highlights the shift in focus as campaigns progress.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Health Outcomes Section -->
-    <section id="health-outcomes" class="bg-white">
+    <!-- Section 3 -->
+    <!-- Health Outcomes Section -->    
+    <!-- Vaccination Impact Section -->
+    <section id="vaccination-impact" class="bg-light py-5">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                    <h2>Vaccination vs. Health Outcomes</h2>
-                    <p>Explore the impact of vaccination on cases, hospitalizations, and deaths.</p>
+            <h2 class="text-center">Vaccination Impact on Death and Hospitalization Rates</h2>
+            <p class="text-center">Explore the effects of vaccination on death and hospitalization rates for vaccinated and unvaccinated populations.</p>
+            <div class="row mt-4">
+                <!-- Death Rates Chart -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Death Rates (Vaccinated vs Unvaccinated)</h4>
+                            <canvas id="death-chart"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="visualization">
-                        <p>[Visualization: Grouped Bar Chart]</p>
+                <!-- Hospitalization Rates Chart -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Hospitalization Rates (Vaccinated vs Unvaccinated)</h4>
+                            <canvas id="hospitalization-chart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+
+
+    
     <!-- Regional Comparisons Section -->
     <section id="regional-comparisons" class="bg-light">
         <div class="container">
@@ -286,9 +338,20 @@
         </div>
     </footer>
 
+    <!-- JS Links -->
     <!-- Bootstrap JS from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Section-Specific JS -->
+    <script src="js/global-trends.js"></script>
+    <!-- Include Progress Over Time JavaScript -->
+    <script src="js/progress-over-time.js"></script>    
+    <!-- Include Health Outcomes JavaScript -->
+    <script src="js/health-outcomes.js"></script>   
+    <!-- Main JS -->
     <script src="js/main.js"></script>
 </body>
 </html>
