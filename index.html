@@ -166,58 +166,81 @@
         </div>
     </section>
 
-    <!-- Section 3 -->
-    <!-- Health Outcomes Section -->    
-    <!-- Vaccination Impact Section -->
+    <!-- Section 3 - Vaccination and Health Outcomes -->
     <section id="vaccination-impact" class="bg-light py-5">
         <div class="container">
-            <h2 class="text-center">Vaccination Impact on Death and Hospitalization Rates</h2>
-            <p class="text-center">Explore the effects of vaccination on death and hospitalization rates for vaccinated and unvaccinated populations.</p>
+            <h2 class="text-center">Vaccination, COVID-19 Deaths, and Hospitalizations</h2>
+            <p class="text-center">
+                This section explores the relationship between vaccination rates and their impact on COVID-19 deaths and hospitalizations. 
+                The charts below provide insights into trends across key countries over the years.
+            </p>
+            
+            <!-- Combined Chart Row -->
             <div class="row mt-4">
-                <!-- Death Rates Chart -->
+                <!-- Vaccination vs. COVID-19 Deaths Chart -->
                 <div class="col-md-6">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h4 class="card-title text-center">Death Rates (Vaccinated vs Unvaccinated)</h4>
-                            <canvas id="death-chart"></canvas>
+                            <h4 class="card-title text-center">Vaccination vs. COVID-19 Deaths</h4>
+                            <canvas id="vaccination-death-chart"></canvas>
+                            <p class="mt-3 text-center">
+                                This chart shows the annual COVID-19 deaths (2020–2023) alongside vaccination rates. It highlights the trends in deaths reported each year and allows comparisons across countries. While higher vaccination rates may correlate with fewer deaths, the data also reflects other factors such as healthcare infrastructure and pandemic response strategies.
+                            </p>
                         </div>
                     </div>
                 </div>
-                <!-- Hospitalization Rates Chart -->
+                <!-- Vaccination vs. Hospitalization Rates Chart -->
                 <div class="col-md-6">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h4 class="card-title text-center">Hospitalization Rates (Vaccinated vs Unvaccinated)</h4>
-                            <canvas id="hospitalization-chart"></canvas>
+                            <h4 class="card-title text-center">Vaccination vs. Hospitalization Rates</h4>
+                            <canvas id="vaccination-hospitalization-chart"></canvas>
+                            <p class="mt-3 text-center">
+                                This chart highlights the relationship between vaccination rates and hospitalization trends due to COVID-19. Higher vaccination rates are often associated with reduced hospital admissions, easing the burden on healthcare systems.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
+    
+
+    
 
 
 
     
+
+    <!-- Section 4 -->
     <!-- Regional Comparisons Section -->
-    <section id="regional-comparisons" class="bg-light">
+    <section id="regional-comparisons" class="bg-white py-5">
         <div class="container">
-            <h2 class="text-center">Regional Comparisons and Disparities</h2>
-            <p class="text-center">Highlight disparities in vaccination coverage and outcomes.</p>
-            <div class="row">
+            <h2 class="text-center">Regional Comparisons</h2>
+            <p class="text-center">Compare vaccination coverage and mortality rates across regions.</p>
+    
+            <div class="row mt-4">
                 <div class="col-md-6">
-                    <div class="visualization">
-                        <p>[Visualization: Bubble Plot]</p>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Vaccination Coverage by Region</h4>
+                            <canvas id="regional-vaccination-chart"></canvas>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="visualization">
-                        <p>[Visualization: Heatmap]</p>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Mortality Rates by Region</h4>
+                            <canvas id="regional-mortality-chart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Age Groups Section -->
     <section id="age-groups" class="bg-white">
@@ -351,6 +374,8 @@
     <script src="js/progress-over-time.js"></script>    
     <!-- Include Health Outcomes JavaScript -->
     <script src="js/health-outcomes.js"></script>   
+    <!-- Link Regional Comparisons Script
+    <script src="js/regional-comparisons.js"></script> -->
     <!-- Main JS -->
     <script src="js/main.js"></script>
 </body>

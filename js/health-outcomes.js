@@ -1,150 +1,155 @@
-const cdcDataUrl = 'https://data.cdc.gov/resource/km4m-vcsb.json'; // CDC API URL
+// Paths to dataset files
+const vaccinationDatasetUrl = './data/Section 3/vaccination-data.csv';
+const covidDatasetUrl = './data/Section 3/WHO-COVID-19-global-data.csv';
 
 /**
- * Fetch data from the CDC dataset.
- * @returns {Promise<Array>} Parsed JSON data.
+ * Fetch and parse CSV data.
+ * @param {string} url - URL or path to the CSV file.
+ * @returns {Promise<Array>} Parsed data as an array of objects.
  */
-async function fetchCdcData() {
+async function fetchCsvData(url) {
     try {
-        const response = await fetch(cdcDataUrl);
+        const response = await fetch(url);
         if (!response.ok) {
-            throw new Error(`HTTP Status: ${response.status}`);
+            throw new Error(`Failed to fetch data from ${url}: ${response.status}`);
         }
-        const data = await response.json();
-        console.log('Fetched CDC Data:', data);
-
-        // Log available locations for debugging
-        console.log('Available Locations:', [...new Set(data.map(d => d.location))]);
-
+        const csvText = await response.text();
+        const rows = csvText.trim().split('\n').map(row => row.split(','));
+        const headers = rows[0];
+        const data = rows.slice(1).map(row =>
+            headers.reduce((acc, header, index) => {
+                acc[header.trim()] = row[index]?.trim() || null;
+                return acc;
+            }, {})
+        );
         return data;
     } catch (error) {
-        console.error('Error fetching CDC data:', error);
-        return null;
+        console.error(`Error fetching CSV data from ${url}: ${error}`);
+        return [];
     }
 }
 
 /**
- * Prepares chart data for the given metric.
- * @param {Array} data - Fetched CDC dataset.
- * @param {string} metric - Metric key (e.g., 'death_rate', 'hospitalization_rate').
- * @returns {Object} Prepared chart data (labels, vaccinatedRates, unvaccinatedRates).
+ * Combines vaccination and COVID-19 death data.
+ * @param {Array} vaccinationData - Vaccination dataset.
+ * @param {Array} covidData - COVID-19 dataset.
+ * @param {Array} countries - List of countries to include in the analysis.
+ * @returns {Object} Combined data for visualization.
  */
-function prepareChartData(data, metric) {
-    // Use locations found in the dataset
-    const locations = ['CA', 'FL', 'NY', 'TX', 'WA']; // Example abbreviations from the dataset
-    const labels = [];
-    const vaccinatedRates = [];
-    const unvaccinatedRates = [];
+function combineVaccinationAndDeathData(vaccinationData, covidData, countries) {
+    const combinedData = countries.map(country => {
+        const vaccinationEntry = vaccinationData.find(entry => entry['COUNTRY'] === country);
+        const covidEntries = covidData.filter(entry => entry['Country'] === country);
 
-    locations.forEach((location) => {
-        const locationData = data.find((d) => d.location === location);
-        if (locationData) {
-            const vaccinated = parseFloat(locationData[`vax_${metric}`]) || 0;
-            const unvaccinated = parseFloat(locationData[`unvax_${metric}`]) || 0;
-            labels.push(location); // Use location abbreviations
-            vaccinatedRates.push(vaccinated);
-            unvaccinatedRates.push(unvaccinated);
-        } else {
-            console.warn(`No data found for location: ${location}`);
-            labels.push(location);
-            vaccinatedRates.push(0);
-            unvaccinatedRates.push(0);
+        if (!vaccinationEntry || !covidEntries.length) {
+            console.warn(`No matching data found for ${country}`);
+            return null;
         }
+
+        let previousDeaths = 0;
+        const yearlyDeaths = ['2020', '2021', '2022', '2023'].map(year => {
+            const yearData = covidEntries.filter(entry => entry['Date_reported'].startsWith(year));
+            const lastEntry = yearData.length ? parseInt(yearData[yearData.length - 1]['Cumulative_deaths'], 10) || 0 : 0;
+            const newDeaths = lastEntry - previousDeaths;
+            previousDeaths = lastEntry;
+            return newDeaths > 0 ? newDeaths : 0;
+        });
+
+        return {
+            country,
+            vaccinationRate: parseFloat(vaccinationEntry['TOTAL_VACCINATIONS_PER100']) || 0,
+            yearlyDeaths,
+        };
     });
 
-    console.log(`Prepared Chart Data (${metric}):`, { labels, vaccinatedRates, unvaccinatedRates });
-    return { labels, vaccinatedRates, unvaccinatedRates };
+    return combinedData.filter(entry => entry !== null);
 }
 
 /**
- * Renders a bar chart.
- * @param {string} canvasId - Canvas ID for the chart.
- * @param {string} title - Title for the Y-axis.
- * @param {Array} labels - Labels for the X-axis.
- * @param {Array} vaccinatedRates - Vaccinated rates dataset.
- * @param {Array} unvaccinatedRates - Unvaccinated rates dataset.
+ * Prepares chart data for Vaccination vs. Deaths.
+ * @param {Array} combinedData - Combined data for visualization.
+ * @returns {Object} Chart-ready data.
  */
-function renderBarChart(canvasId, title, labels, vaccinatedRates, unvaccinatedRates) {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) {
+function prepareChartForDeaths(combinedData) {
+    const labels = ['2020', '2021', '2022', '2023'];
+    const datasets = combinedData.map(entry => ({
+        label: entry.country,
+        data: entry.yearlyDeaths,
+        backgroundColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.6)`,
+    }));
+
+    return { labels, datasets };
+}
+
+/**
+ * Renders a bar chart using Chart.js.
+ * @param {string} canvasId - Unique ID of the canvas element.
+ * @param {string} title - Title for the chart.
+ * @param {Object} chartData - Chart-ready data.
+ */
+function renderUniqueBarChart(canvasId, title, chartData) {
+    console.log('Rendering for canvas:', canvasId);
+
+    const canvasElement = document.getElementById(canvasId);
+    if (!canvasElement) {
         console.error(`Canvas with ID '${canvasId}' not found.`);
         return;
     }
-    const ctx = canvas.getContext('2d');
 
-    if (window[canvasId] instanceof Chart) {
+    const ctx = canvasElement.getContext('2d');
+
+    // Ensure we only destroy existing Chart instances
+    if (window[canvasId] && window[canvasId] instanceof Chart) {
         window[canvasId].destroy();
-        console.log(`Destroyed previous chart instance for ${canvasId}`);
     }
 
     window[canvasId] = new Chart(ctx, {
         type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Vaccinated',
-                    data: vaccinatedRates,
-                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                },
-                {
-                    label: 'Unvaccinated',
-                    data: unvaccinatedRates,
-                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                },
-            ],
-        },
+        data: chartData,
         options: {
             responsive: true,
             plugins: {
                 legend: { position: 'top' },
                 tooltip: {
                     callbacks: {
-                        label: function (context) {
-                            return `${context.dataset.label}: ${context.raw}`;
-                        },
+                        label: context => `${context.dataset.label}: ${context.raw}`,
                     },
                 },
             },
             scales: {
-                x: { title: { display: true, text: 'Locations' } },
-                y: { title: { display: true, text: title }, beginAtZero: true },
+                x: { title: { display: true, text: 'Years' } },
+                y: { title: { display: true, text: 'New Deaths per Year' }, beginAtZero: true },
             },
         },
     });
-    console.log(`Rendered bar chart for ${canvasId}.`);
 }
 
 /**
- * Initializes the charts for Death and Hospitalization Rates.
+ * Initializes the analysis and charts.
  */
-async function initCharts() {
-    const data = await fetchCdcData();
-    if (!data) {
-        console.error('Failed to fetch CDC data.');
+async function initializeVisualization() {
+    const vaccinationData = await fetchCsvData(vaccinationDatasetUrl);
+    const covidData = await fetchCsvData(covidDatasetUrl);
+
+    if (!vaccinationData.length || !covidData.length) {
+        console.error('Failed to load datasets.');
         return;
     }
 
-    // Prepare Death Rates Chart Data
-    const deathChartData = prepareChartData(data, 'death_rate');
-    renderBarChart(
-        'death-chart',
-        'Death Rate (per 100,000)',
-        deathChartData.labels,
-        deathChartData.vaccinatedRates,
-        deathChartData.unvaccinatedRates
-    );
+    console.log('Vaccination Data:', vaccinationData);
+    console.log('COVID-19 Data:', covidData);
 
-    // Prepare Hospitalization Rates Chart Data
-    const hospitalizationChartData = prepareChartData(data, 'hospitalization_rate');
-    renderBarChart(
-        'hospitalization-chart',
-        'Hospitalization Rate (per 100,000)',
-        hospitalizationChartData.labels,
-        hospitalizationChartData.vaccinatedRates,
-        hospitalizationChartData.unvaccinatedRates
-    );
+    const importantCountries = ['United States', 'United Kingdom', 'Russia', 'China', 'India', 'Germany', 'France', 'Japan', 'Canada'];
+
+    const combinedData = combineVaccinationAndDeathData(vaccinationData, covidData, importantCountries);
+    console.log('Combined Data:', combinedData);
+
+    const deathChartData = prepareChartForDeaths(combinedData);
+    renderUniqueBarChart('vaccination-death-chart', 'New COVID-19 Deaths per Year', deathChartData);
 }
 
-// Initialize charts
-initCharts();
+// Run the visualization on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Visualization script loaded!');
+    initializeVisualization();
+});
