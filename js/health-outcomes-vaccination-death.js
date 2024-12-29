@@ -1,4 +1,6 @@
-// Paths to dataset files
+// vaccination-death.js
+
+// Paths to datasets
 const vaccinationDatasetUrl = './data/Section 3/vaccination-data.csv';
 const covidDatasetUrl = './data/Section 3/WHO-COVID-19-global-data.csv';
 
@@ -30,11 +32,7 @@ async function fetchCsvData(url) {
 }
 
 /**
- * Combines vaccination and COVID-19 death data.
- * @param {Array} vaccinationData - Vaccination dataset.
- * @param {Array} covidData - COVID-19 dataset.
- * @param {Array} countries - List of countries to include in the analysis.
- * @returns {Object} Combined data for visualization.
+ * Combines vaccination and death data.
  */
 function combineVaccinationAndDeathData(vaccinationData, covidData, countries) {
     const combinedData = countries.map(country => {
@@ -66,9 +64,7 @@ function combineVaccinationAndDeathData(vaccinationData, covidData, countries) {
 }
 
 /**
- * Prepares chart data for Vaccination vs. Deaths.
- * @param {Array} combinedData - Combined data for visualization.
- * @returns {Object} Chart-ready data.
+ * Prepares chart data for vaccination and deaths.
  */
 function prepareChartForDeaths(combinedData) {
     const labels = ['2020', '2021', '2022', '2023'];
@@ -82,24 +78,18 @@ function prepareChartForDeaths(combinedData) {
 }
 
 /**
- * Renders a bar chart using Chart.js.
- * @param {string} canvasId - Unique ID of the canvas element.
- * @param {string} title - Title for the chart.
- * @param {Object} chartData - Chart-ready data.
+ * Renders the vaccination-death chart.
  */
 function renderUniqueBarChart(canvasId, title, chartData) {
-    console.log('Rendering for canvas:', canvasId);
-
-    const canvasElement = document.getElementById(canvasId);
-    if (!canvasElement) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) {
         console.error(`Canvas with ID '${canvasId}' not found.`);
         return;
     }
 
-    const ctx = canvasElement.getContext('2d');
+    const ctx = canvas.getContext('2d');
 
-    // Ensure we only destroy existing Chart instances
-    if (window[canvasId] && window[canvasId] instanceof Chart) {
+    if (window[canvasId] instanceof Chart) {
         window[canvasId].destroy();
     }
 
@@ -125,7 +115,7 @@ function renderUniqueBarChart(canvasId, title, chartData) {
 }
 
 /**
- * Initializes the analysis and charts.
+ * Initializes the vaccination-death chart.
  */
 async function initializeVisualization() {
     const vaccinationData = await fetchCsvData(vaccinationDatasetUrl);
@@ -136,20 +126,14 @@ async function initializeVisualization() {
         return;
     }
 
-    console.log('Vaccination Data:', vaccinationData);
-    console.log('COVID-19 Data:', covidData);
-
     const importantCountries = ['United States', 'United Kingdom', 'Russia', 'China', 'India', 'Germany', 'France', 'Japan', 'Canada'];
 
-    const combinedData = combineVaccinationAndDeathData(vaccinationData, covidData, importantCountries);
-    console.log('Combined Data:', combinedData);
+    const combinedDataForDeaths = combineVaccinationAndDeathData(vaccinationData, covidData, importantCountries);
+    const deathChartData = prepareChartForDeaths(combinedDataForDeaths);
 
-    const deathChartData = prepareChartForDeaths(combinedData);
     renderUniqueBarChart('vaccination-death-chart', 'New COVID-19 Deaths per Year', deathChartData);
 }
 
-// Run the visualization on DOM load
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Visualization script loaded!');
     initializeVisualization();
 });
