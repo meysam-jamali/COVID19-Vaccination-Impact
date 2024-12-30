@@ -100,7 +100,7 @@ Section 1: Global Trends
 
 /* Set consistent height for chart containers */
 .chart-container {
-    height: 400px; /* Fixed height for both choropleth map and bar chart */
+    height: auto !important; /* Fixed height for both choropleth map and bar chart */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,25 +119,55 @@ Section 1: Global Trends
 
 /* Section 3 */
 /* Health Outcomes Section */
+/* Scoped styles for #vaccination-impact */
+ /* Scoped styles for #vaccination-impact */
+ #vaccination-impact {
+    background-color: #f8f9fa; /* Light background for contrast */
+}
+
+#vaccination-impact .card {
+    background-color: #fff; /* Ensure white card background */
+    border: none; /* Remove border for a cleaner look */
+    overflow: hidden; /* Prevent content overflow */
+    height: 100%; /* Full height cards */
+}
+
+#vaccination-impact .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensure the body fills the card */
+}
+
+#vaccination-impact .chart-container {
+    flex-grow: 1; /* Allow the chart to grow and fill available space */
+    width: 100%;
+    height: 100%;
+}
+
+#vaccination-impact .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+#vaccination-impact h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#vaccination-impact p {
+    font-size: 0.9rem;
+    color: #6c757d; /* Muted text color for descriptions */
+}
 
 /* Section 4 */
 /* Full-Page Heatmap Section */
 /* Full-Page Heatmap Section */
-#age-groups {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    box-sizing: border-box;
-    background-color: #ffffff;
-}
 
 #age-groups h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
     color: #343a40;
     text-align: center;
 }
