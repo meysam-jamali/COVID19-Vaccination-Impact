@@ -87,114 +87,127 @@
     </section>
 
 
-    <!-- Introduction Section -->
-    <section id="intro" class="text-center bg-light">
+   <!-- Introduction Section -->
+    <section id="intro" class="py-4">
         <div class="container">
-            <h1 class="mb-5 mt-3">COVID-19 and Vaccination Impact</h1>
-            <p>Analyzing vaccination trends, health outcomes, and equity issues using interactive visualizations.</p>
+            <div class="card shadow border-0 p-4 rounded-3 bg-white">
+                <h1 class="fw-medium text-secondary text-center mb-3">COVID-19 and Vaccination Impact</h1>
+                <p class="text-center text-muted mb-0">
+                    Discover trends, analyze outcomes, and explore equity in vaccination through 
+                    <span class="fw-bold text-danger">interactive visualizations</span>.
+                </p>
+            </div>
         </div>
     </section>
 
+    
     <!-- Section 1 -->
     <!-- Global Trends Section -->
-    <section id="global-trends" class="bg-light py-5">
+    <section id="global-trends" class="py-4">
         <div class="container">
-            <h2 class="text-center">Global Overview of Vaccination Trends</h2>
-            <p class="text-center">
-                This section visualizes global vaccination efforts using a choropleth map and a bar chart. The map shows vaccination rates by country, while the chart compares regional vaccination coverage.
-            </p>
-            <div class="row mt-4 d-flex align-items-stretch">
-                <!-- Choropleth Map -->
-                <div class="col-md-6">
-                    <h4 class="text-center">Choropleth Map</h4>
-                    <div id="choropleth-map" class="chart-container"></div>
-                    <p class="text-center mt-2">
-                        <strong>Explanation:</strong> The map uses shades of blue to represent vaccination rates. 
-                        <span style="color: lightblue;">Lighter blue</span> indicates lower vaccination rates, while 
-                        <span style="color: darkblue;">darker blue</span> indicates higher vaccination rates. 
-                        Hover over a country to see the exact percentage of the population vaccinated.
-                    </p>
-                </div>
-    
-                <!-- Bar Chart -->
-                <div class="col-md-6">
-                    <h4 class="text-center">Bar Chart</h4>
-                    <div id="bar-chart" class="chart-container"></div>
-                    <p class="text-center mt-2">
-                        <strong>Explanation:</strong> This chart compares average vaccination coverage across regions.
-                        The height of each bar indicates the percentage of vaccinated people in the region.
-                        All bars are styled in blue for consistency.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>    
-    
-    <!-- Section 2 -->
-    <!-- Progress Over Time Section -->
-    <section id="progress-over-time" class="bg-light py-5">
-        <div class="container">
-            <h2 class="text-center">Vaccination Progress Over Time</h2>
-            <p class="text-center">
-                Track the progress of global vaccination efforts and how they have evolved over time.
-            </p>
-
-            <!-- Line Chart Row -->
-            <div class="row mt-4 d-flex align-items-stretch">
-                <div class="col-12 d-flex flex-column">
-                    <h4 class="text-center">Line Chart</h4>
-                    <div id="line-chart" class="chart-container"></div>
-                    <p class="text-center mt-2">
-                        <strong>Explanation:</strong> The line chart illustrates the cumulative number of vaccinations administered globally over time. 
-                        It helps identify trends and key milestones.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Stacked Area Chart Row -->
-            <div class="row mt-4 d-flex align-items-stretch">
-                <div class="col-12 d-flex flex-column">
-                    <h4 class="text-center">Stacked Area Chart</h4>
-                    <div id="stacked-area-chart" class="chart-container"></div>
-                    <p class="text-center mt-2">
-                        <strong>Explanation:</strong> The stacked area chart shows the proportion of fully vaccinated, partially vaccinated, 
-                        and booster doses over time. It highlights the shift in focus as campaigns progress.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-   <!-- Section 3 - Vaccination and Health Outcomes -->
-    <section id="vaccination-impact" class="bg-light py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Vaccination Impact on COVID-19 Trends</h2>
-
-            <!-- Row for Vaccination vs. Death Rates Chart -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h4 class="card-title text-center">Vaccination vs. Death Rates</h4>
-                            <div id="vaccination-death-chart" class="flex-grow-1 chart-container"></div>
-                            <p class="mt-3 text-center">
-                                This chart shows the relationship between vaccination rates and COVID-19 deaths over the years.
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-medium text-secondary text-center mb-3">Global Overview of Vaccination Trends</h2>
+                        <p class="text-muted text-justify">
+                            This section visualizes global vaccination efforts using a choropleth map and a bar chart. 
+                            The map shows vaccination rates by country, while the chart compares regional vaccination coverage.
+                        </p>
+                    </div>
+                    <div class="row g-4">
+                        <!-- Choropleth Map -->
+                        <div class="col-md-6">
+                            <h4 class="fw-semibold text-secondary text-center">Choropleth Map</h4>
+                            <div id="choropleth-map" class="chart-container"></div>
+                            <p class="text-muted mt-3 text-justify">
+                                <strong>Explanation:</strong> The map uses shades of blue to represent vaccination rates. 
+                                Lighter blue indicates lower vaccination rates, while darker blue indicates higher vaccination rates. 
+                                Hover over a country to see the exact percentage of the population vaccinated.
+                            </p>
+                        </div>
+                        <!-- Bar Chart -->
+                        <div class="col-md-6">
+                            <h4 class="fw-semibold text-secondary text-center">Bar Chart</h4>
+                            <div id="bar-chart" class="chart-container"></div>
+                            <p class="text-muted mt-3 text-justify">
+                                <strong>Explanation:</strong> This chart compares average vaccination coverage across regions. 
+                                The height of each bar indicates the percentage of vaccinated people in the region. 
+                                All bars are styled in blue for consistency.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Row for Vaccination vs. Hospitalization Rates Chart -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body d-flex flex-column">
-                            <h4 class="card-title text-center">Vaccination vs. Hospitalization Rates</h4>
-                            <div id="vaccination-hospitalization-chart" class="flex-grow-1 chart-container"></div>
-                            <p class="mt-3 text-center">
-                                This chart highlights the relationship between vaccination rates and hospitalization trends due to COVID-19.
+    <!-- Section 2 -->
+    <!-- Progress Over Time Section -->
+    <section id="progress-over-time" class="bg-light py-5">
+        <div class="container">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-secondary">Vaccination Progress Over Time</h2>
+                        <p class="text-muted">
+                            Track the progress of global vaccination efforts and how they have evolved over time.
+                        </p>
+                    </div>
+                    <div class="row g-4">
+                        <!-- Line Chart -->
+                        <div class="col-md-6 d-flex flex-column align-items-center">
+                            <h4 class="fw-semibold text-secondary text-center">Line Chart</h4>
+                            <div id="line-chart" class="chart-container"></div>
+                            <p class="text-center mt-3">
+                                <strong>Explanation:</strong> The line chart illustrates the cumulative number of vaccinations administered globally over time. 
+                                It helps identify trends and key milestones.
+                            </p>
+                        </div>
+
+                        <!-- Stacked Area Chart -->
+                        <div class="col-md-6 d-flex flex-column align-items-center">
+                            <h4 class="fw-semibold text-secondary text-center">Stacked Area Chart</h4>
+                            <div id="stacked-area-chart" class="chart-container"></div>
+                            <p class="text-center mt-3">
+                                <strong>Explanation:</strong> The stacked area chart shows the proportion of fully vaccinated, partially vaccinated, 
+                                and booster doses over time. It highlights the shift in focus as campaigns progress.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3 - Vaccination and Health Outcomes -->
+    <section id="vaccination-impact" class="bg-light py-5">
+        <div class="container">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-secondary">Vaccination Impact on COVID-19 Trends</h2>
+                        <p class="text-muted">
+                            Analyze the relationship between vaccination rates and critical health outcomes like death and hospitalization rates.
+                        </p>
+                    </div>
+                    <div class="row g-4">
+                        <!-- Vaccination vs. Death Rates -->
+                        <div class="col-12 d-flex flex-column align-items-center">
+                            <h4 class="fw-semibold text-secondary text-center">Vaccination vs. Death Rates</h4>
+                            <div id="vaccination-death-chart" class="chart-container"></div>
+                            <p class="text-center mt-3">
+                                <strong>Explanation:</strong> This chart shows the relationship between vaccination rates and COVID-19 deaths over the years.
+                            </p>
+                        </div>
+
+                        <hr class="hr" />
+
+                        <!-- Vaccination vs. Hospitalization Rates -->
+                        <div class="col-12 d-flex flex-column align-items-center">
+                            <h4 class="fw-semibold text-secondary text-center">Vaccination vs. Hospitalization Rates</h4>
+                            <div id="vaccination-hospitalization-chart" class="chart-container"></div>
+                            <p class="text-center mt-3">
+                                <strong>Explanation:</strong> This chart highlights the relationship between vaccination rates and hospitalization trends due to COVID-19.
                             </p>
                         </div>
                     </div>
@@ -205,23 +218,51 @@
 
     <!-- Section 4 -->
     <!-- Age Groups Section -->
-    <section id="age-groups">
+    <section id="age-groups" class="py-5 bg-light">
         <div class="container">
-            <h2 class="text-center">Vaccination Trends by Age Groups</h2>
-            <p class="description">
-                This heatmap visualizes the vaccination rates across age groups over time. Each cell represents a specific vaccination rate for an age group on a given date:
-                <ul>
-                    <li><strong>Light Blue:</strong> Low vaccination rates (0% to 25%)</li>
-                    <li><strong>Medium Blue:</strong> Moderate vaccination rates (26% to 75%)</li>
-                    <li><strong>Dark Blue:</strong> High vaccination rates (76% to 100%)</li>
-                </ul>
-                Use this chart to identify trends, such as which age groups reached high vaccination rates quickly and which lagged behind.
-            </p>
-            <div id="chart-wrapper">
-                <div id="age-group-chart"></div>
+            <!-- Combined Card for Title, Description, and Heatmap -->
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <!-- Title -->
+                    <h2 class="text-center fw-bold text-secondary">Vaccination Trends by Age Groups</h2>
+                    <!-- Description -->
+                    <p class="text-center text-muted">
+                        This heatmap visualizes the vaccination rates across age groups over time. Each cell represents a specific vaccination rate for an age group on a given date:
+                    </p>
+                    <!-- Legend -->
+                    <ul class="list-unstyled text-center mx-auto mb-4">
+                        <li class="mb-2">
+                            <span class="d-inline-block" style="width: 20px; height: 20px; background-color: #440154;"></span>
+                            <strong>Low (0%):</strong> Low vaccination rates
+                        </li>
+                        <li class="mb-2">
+                            <span class="d-inline-block" style="width: 20px; height: 20px; background-color: #3b528b;"></span>
+                            <strong>Medium (50%):</strong> Moderate vaccination rates
+                        </li>
+                        <li>
+                            <span class="d-inline-block" style="width: 20px; height: 20px; background-color: #fde725;"></span>
+                            <strong>High (100%):</strong> High vaccination rates
+                        </li>
+                    </ul>
+                    <!-- Heatmap Title -->
+                    <h4 class="fw-semibold text-secondary text-center mb-4">Age Group Heatmap</h4>
+                    <!-- Heatmap Chart -->
+                    <div id="chart-wrapper">
+                        <div id="age-group-chart" class="chart-container" style="min-height: 500px;"></div>
+                    </div>
+                    <!-- Explanation -->
+                    <p class="text-center mt-3">
+                        <strong>Explanation:</strong> The heatmap shows vaccination trends across different age groups, highlighting disparities in vaccination rates over time.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
+
+
+
+
+
 
     <!-- Section 5 -->
     <!-- Socioeconomic Factors Section -->
@@ -310,7 +351,6 @@
         </div>
     </section>
     
-    
     <!-- Section 7 -->
     <!-- Life Expectancy Vaccination -->
     <section id="life-expectancy-vaccination" class="bg-light py-5">
@@ -342,7 +382,6 @@
         </div>
     </section>
 
-    
     <!-- Section 8 -->
     <!-- Role of government policies -->
     <section id="role-of-government-policies" class="bg-light py-5">
@@ -412,10 +451,6 @@
         </div>
     </section>
 
-
-
-
-
     <!-- Footer -->
     <footer class="text-center bg-dark text-white py-3">
         <div class="container">
@@ -431,29 +466,30 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Section-Specific JS -->
-    <script src="js/global-trends-bar-chart.js"></script>
-    <script src="js/global-trends-choropleth-map.js"></script>
-    <!-- Include Progress Over Time JavaScript -->
-    <script src="js/progress-over-time-bar-chart.js"></script>    
-    <script src="js/progress-over-time-stacked-area-chart.js"></script>    
-    <!-- Include Health Outcomes JavaScript -->
-    <script src="js/health-outcomes-bar-chart.js"></script>
-    <script src="js/health-outcomes-grouped-bar-chart.js"></script>   
-    <!-- Include Age Groups -->
-    <script src="js/age-groups.js"></script>   
+    <!-- Sections -->
+    <!-- Section 1 - Global Trends -->
+    <script src="js/section-1/global-trends-bar-chart.js"></script>
+    <script src="js/section-1/global-trends-choropleth-map.js"></script>
+    <!-- Section 2 - Progress Over Time -->
+    <script src="js/section-2/progress-over-time-bar-chart.js"></script>    
+    <script src="js/section-2/progress-over-time-stacked-area-chart.js"></script>    
+    <!-- Section 3 - Health Outcomes -->
+    <script src="js/section-3/health-outcomes-stacked-bar-chart.js"></script>
+    <script src="js/section-3/health-outcomes-grouped-bar-chart.js"></script>   
+    <!-- Section 4 - Age Groups -->
+    <script src="js/section-4/age-groups-heatmap.js"></script>   
     <!-- Socioeconomic Factors -->
-    <script src="js/socioeconomic-factors-heatmap.js"></script>
-    <script src="js/socioeconomic-factors-grouped-bar-chart.js"></script>
+    <!-- <script src="js/socioeconomic-factors-heatmap.js"></script> -->
+    <!-- <script src="js/socioeconomic-factors-grouped-bar-chart.js"></script> -->
     <!-- Gender and Health Factors Section -->
-    <script src="js/gender-health-factors-diverging-bar-chart.js"></script>
+    <!-- <script src="js/gender-health-factors-diverging-bar-chart.js"></script> -->
     <!-- Life Expectancy Vaccination -->
-    <script src="js/life-expectancy-vaccination-bar-chart.js"></script>
+    <!-- <script src="js/life-expectancy-vaccination-bar-chart.js"></script> -->
     <!-- Section 8 -->
     <!-- Role of government policies -->
-    <script src="js/role-of-government-policies-proportional-symbol-maps.js"></script> 
+    <!-- <script src="js/role-of-government-policies-proportional-symbol-maps.js"></script>  -->
     <!-- Section 9 -->
-    <script src="js/vaccination-and-economic-recovery-scatter-plot.js"></script> 
+    <!-- <script src="js/vaccination-and-economic-recovery-scatter-plot.js"></script>  -->
     <!-- Main JS -->
     <script src="js/main.js"></script>
 </body>

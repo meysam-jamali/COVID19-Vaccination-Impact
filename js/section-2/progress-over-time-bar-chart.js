@@ -30,9 +30,9 @@
         const dates = globalData.data.map((d) => d.date);
         const cumulativeVaccinations = globalData.data.map((d) => d.total_vaccinations || 0);
 
-        const width = 800;
+        const width = 450;
         const height = 400;
-        const margin = { top: 60, right: 30, bottom: 70, left: 90 };
+        const margin = { top: 60, right: 30, bottom: 70, left: 115 };
 
         const svg = d3.select('#line-chart')
             .append('svg')
@@ -75,26 +75,31 @@
 
         // Add circles for data points and tooltips
         svg.selectAll('circle')
-            .data(cumulativeVaccinations)
+            .data(globalData.data) // Bind the entire global data entries
             .enter()
             .append('circle')
-            .attr('cx', (_, i) => xScale(new Date(dates[i])))
-            .attr('cy', (d) => yScale(d))
+            .attr('cx', (d) => xScale(new Date(d.date)))
+            .attr('cy', (d) => yScale(d.total_vaccinations || 0))
             .attr('r', 4)
             .attr('fill', 'rgba(54, 162, 235, 1)')
-            .on('mouseover', (event, d, i) => {
+            .on('mouseover', (event, d) => {
+                const date = new Date(d.date);
+                const formattedDate = d3.timeFormat('%b %d, %Y')(date);
+                const vaccinations = d.total_vaccinations ? d.total_vaccinations.toLocaleString() : 'No data';
                 tooltip
                     .style('visibility', 'visible')
-                    .text(`Date: ${d3.timeFormat('%b %d, %Y')(new Date(dates[i]))}\nCumulative: ${d.toLocaleString()}`);
+                    .html(`Date: ${formattedDate}<br>Cumulative: ${vaccinations}`);
             })
             .on('mousemove', (event) => {
                 tooltip
-                    .style('top', `${event.pageY - 20}px`)
+                    .style('top', `${event.pageY - 40}px`)
                     .style('left', `${event.pageX + 10}px`);
             })
             .on('mouseout', () => {
                 tooltip.style('visibility', 'hidden');
             });
+
+
 
         // X-axis
         svg.append('g')
@@ -111,18 +116,20 @@
         // X-axis label
         svg.append('text')
             .attr('x', width / 2)
-            .attr('y', height + 50)
+            .attr('y', height + 70)
             .attr('text-anchor', 'middle')
             .style('font-size', '14px')
+            .style('font-weight', 600)
             .text('Date');
 
         // Y-axis label
         svg.append('text')
             .attr('transform', 'rotate(-90)')
-            .attr('y', -margin.left + 20)
+            .attr('y', -margin.left + 25)
             .attr('x', -height / 2)
             .attr('text-anchor', 'middle')
             .style('font-size', '14px')
+            .style('font-weight', 600)
             .text('Cumulative Vaccinations');
 
         // Add guidance (legend)

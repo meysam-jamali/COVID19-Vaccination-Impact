@@ -39,9 +39,9 @@
             BoosterDoses: boosterDoses[i],
         }));
 
-        const width = 800;
-        const height = 500;
-        const margin = { top: 80, right: 50, bottom: 100, left: 120 }; // Adjusted margins
+        const width = 450;
+        const height = 400;
+        const margin = { top: 80, right: 50, bottom: 100, left: 120 };
 
         const svg = d3.select('#stacked-area-chart')
             .append('svg')
@@ -71,6 +71,20 @@
             .domain(keys)
             .range(['rgba(75, 192, 192, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(153, 102, 255, 0.6)']);
 
+        // Tooltip
+        const tooltip = d3.select('body')
+            .append('div')
+            .style('position', 'absolute')
+            .style('visibility', 'hidden')
+            .style('background', '#fff')
+            .style('border', '1px solid #ccc')
+            .style('padding', '8px')
+            .style('border-radius', '5px')
+            .style('box-shadow', '0px 2px 8px rgba(0, 0, 0, 0.2)')
+            .style('font-size', '12px')
+            .style('z-index', 1000);
+
+        // Add paths with hover interaction
         svg.selectAll('path')
             .data(series)
             .enter()
@@ -80,7 +94,29 @@
                 .x((d) => xScale(d.data.date))
                 .y0((d) => yScale(d[0]))
                 .y1((d) => yScale(d[1]))
-            );
+            )
+            .on('mouseover', function (event, d) {
+                d3.select(this).attr('opacity', 0.8); // Highlight the hovered area
+                tooltip.style('visibility', 'visible');
+            })
+            .on('mousemove', function (event, d) {
+                const [x, y] = d3.pointer(event);
+                const hoveredDate = xScale.invert(x);
+                const hoveredValue = yScale.invert(y);
+
+                tooltip
+                    .style('top', `${event.pageY - 50}px`)
+                    .style('left', `${event.pageX + 15}px`)
+                    .html(`
+                        <strong>${d.key}</strong><br>
+                        <strong>Date:</strong> ${d3.timeFormat('%b %d, %Y')(hoveredDate)}<br>
+                        <strong>Value:</strong> ${Math.round(hoveredValue).toLocaleString()}
+                    `);
+            })
+            .on('mouseout', function () {
+                d3.select(this).attr('opacity', 1); // Reset area opacity
+                tooltip.style('visibility', 'hidden');
+            });
 
         // X-axis
         svg.append('g')
@@ -97,23 +133,25 @@
         // X-axis label
         svg.append('text')
             .attr('x', width / 2)
-            .attr('y', height + 70) // Added margin
+            .attr('y', height + 70)
             .attr('text-anchor', 'middle')
             .style('font-size', '14px')
+            .style('font-weight', '600')
             .text('Date');
 
         // Y-axis label
         svg.append('text')
             .attr('transform', 'rotate(-90)')
-            .attr('y', -margin.left + 30) // Added margin
+            .attr('y', -margin.left + 30)
             .attr('x', -height / 2)
             .attr('text-anchor', 'middle')
             .style('font-size', '14px')
+            .style('font-weight', '600')
             .text('Number of Vaccinations');
 
         // Add guidance (legend) for colors
         const legend = svg.append('g')
-            .attr('transform', `translate(0, -50)`); // Position at the top
+            .attr('transform', `translate(-65, -50)`);
 
         keys.forEach((key, i) => {
             const legendGroup = legend.append('g')

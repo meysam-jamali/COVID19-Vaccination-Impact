@@ -2,7 +2,6 @@
     const geoJsonUrl = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
     const vaccinationDataUrl = 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.json';
 
-    // Set up theme variables
     const themes = {
         light: {
             background: '#fff',
@@ -22,7 +21,7 @@
         },
     };
 
-    const currentTheme = themes.light; // Change this to themes.dark for dark mode
+    const currentTheme = themes.light; // Toggle between light and dark modes
 
     async function fetchData(url) {
         try {
@@ -77,7 +76,7 @@
             feature.properties.vaccinationRate = vaccinationMap[isoCode] || 'No data';
         });
 
-        // Add tooltip
+        // Tooltip
         const tooltip = d3.select('body')
             .append('div')
             .style('position', 'absolute')
@@ -104,27 +103,26 @@
             .on('mouseover', (event, d) => {
                 tooltip
                     .style('visibility', 'visible')
-                    .text(`${d.properties.ADMIN}: ${d.properties.vaccinationRate === 'No data' ? 'No data' : d.properties.vaccinationRate.toFixed(1) + '%'}`);
+                    .html(`<strong>${d.properties.ADMIN}</strong><br>${d.properties.vaccinationRate === 'No data' ? 'No data' : d.properties.vaccinationRate.toFixed(1) + '%'}`);
             })
             .on('mousemove', (event) => {
                 tooltip
-                    .style('top', `${event.pageY - 20}px`)
+                    .style('top', `${event.pageY - 40}px`)
                     .style('left', `${event.pageX + 10}px`);
             })
             .on('mouseout', () => {
                 tooltip.style('visibility', 'hidden');
             });
 
-        // Add legend
+        // Legend
         const legendWidth = 300;
         const legendHeight = 20;
 
         const legendSvg = svg.append('g')
             .attr('transform', `translate(${(width - legendWidth) / 2}, ${height - margin.bottom})`);
 
-        // Create a gradient for the legend
+        // Gradient for the legend
         const defs = svg.append('defs');
-
         const gradient = defs.append('linearGradient')
             .attr('id', 'legend-gradient')
             .attr('x1', '0%')
@@ -145,7 +143,7 @@
             .attr('height', legendHeight)
             .style('fill', 'url(#legend-gradient)');
 
-        // Add legend axis
+        // Legend axis
         const legendScale = d3.scaleLinear()
             .domain([0, 100])
             .range([0, legendWidth]);
@@ -155,6 +153,24 @@
             .call(d3.axisBottom(legendScale).ticks(5).tickFormat(d => `${d}%`))
             .style('font-size', '12px')
             .style('color', currentTheme.legendText);
+
+        // Legend labels
+        legendSvg.append('text')
+            .attr('x', 0)
+            .attr('y', -5)
+            .style('fill', currentTheme.legendText)
+            .style('font-size', '12px')
+            .style('font-weight', '600')
+            .text('Low Vaccination');
+
+        legendSvg.append('text')
+            .attr('x', legendWidth)
+            .attr('y', -5)
+            .attr('text-anchor', 'end')
+            .style('fill', currentTheme.legendText)
+            .style('font-size', '12px')
+            .style('font-weight', '600')
+            .text('High Vaccination');
     }
 
     renderChoroplethMap();

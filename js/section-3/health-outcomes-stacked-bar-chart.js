@@ -16,15 +16,14 @@ async function fetchCsvData(url) {
         const csvText = await response.text();
         const rows = csvText.trim().split('\n').map(row => row.split(','));
         const headers = rows[0];
-        const data = rows.slice(1).map(row =>
+        return rows.slice(1).map(row =>
             headers.reduce((acc, header, index) => {
                 acc[header.trim()] = row[index]?.trim() || null;
                 return acc;
             }, {})
         );
-        return data;
     } catch (error) {
-        console.error(`Error fetching CSV data from ${url}: ${error}`);
+        console.error(`Error fetching CSV data from ${url}:`, error);
         return [];
     }
 }
@@ -33,7 +32,7 @@ async function fetchCsvData(url) {
  * Combines vaccination and death data.
  */
 function combineVaccinationAndDeathData(vaccinationData, covidData, countries) {
-    const combinedData = countries.map(country => {
+    return countries.map(country => {
         const vaccinationEntry = vaccinationData.find(entry => entry['COUNTRY'] === country);
         const covidEntries = covidData.filter(entry => entry['Country'] === country);
 
@@ -48,7 +47,7 @@ function combineVaccinationAndDeathData(vaccinationData, covidData, countries) {
             const lastEntry = yearData.length ? parseInt(yearData[yearData.length - 1]['Cumulative_deaths'], 10) || 0 : 0;
             const newDeaths = lastEntry - previousDeaths;
             previousDeaths = lastEntry;
-            return newDeaths > 0 ? newDeaths : 0;
+            return Math.max(newDeaths, 0);
         });
 
         return {
@@ -56,9 +55,7 @@ function combineVaccinationAndDeathData(vaccinationData, covidData, countries) {
             vaccinationRate: parseFloat(vaccinationEntry['TOTAL_VACCINATIONS_PER100']) || 0,
             yearlyDeaths,
         };
-    });
-
-    return combinedData.filter(entry => entry !== null);
+    }).filter(entry => entry !== null);
 }
 
 /**
@@ -68,118 +65,138 @@ function renderBarChart(containerId, title, chartData) {
     const container = d3.select(`#${containerId}`);
     container.selectAll('*').remove(); // Clear previous chart
 
-    // Adjust chart dimensions
-    const margin = { top: 70, right: 30, bottom: 100, left: 70 };
-    const width = 1000 - margin.left - margin.right; // Increased width for better spacing
-    const height = 400 - margin.top - margin.bottom;
+    // Chart dimensions
+    const margin = { top: 40, right: 30, bottom: 100, left: 70 };
+    const width = 800 - margin.left - margin.right;
+    const height = 550 - margin.top - margin.bottom;
 
-    const colors = d3.schemeTableau10; // D3 color scheme
+    const colors = ['#4DB6AC', '#FF8A80', '#FFB74D', '#64B5F6', '#BA68C8', '#81C784', '#F06292'];
 
     const svg = container
         .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         .append('g')
-        .attr('transform', `translate(${margin.left},${margin.top})`);
+        .attr('transform', `translate(${margin.left + 30},${margin.top})`);
 
     // X and Y scales
     const xScale = d3.scaleBand()
         .domain(chartData.labels)
         .range([0, width])
-        .padding(0.3); // Reduced padding for wider bars
+        .padding(0.3);
 
     const yScale = d3.scaleLinear()
         .domain([0, d3.max(chartData.datasets.flatMap(dataset => dataset.data))])
         .nice()
         .range([height, 0]);
 
-    // Add X-axis
+    // X-axis
     svg.append('g')
         .attr('transform', `translate(0,${height})`)
         .call(d3.axisBottom(xScale))
         .selectAll('text')
-        .attr('transform', 'rotate(-45)') // Rotate to fit long labels
+        .attr('transform', 'rotate(-45)')
         .style('text-anchor', 'end')
-        .style('font-size', '12px'); // Smaller font for better fit
+        .style('font-size', '12px')
+        .style('fill', '#757575');
 
-    // Add Y-axis
+    // Y-axis
     svg.append('g')
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(yScale).ticks(10).tickFormat(d => `${d.toLocaleString()}`))
+        .selectAll('text')
+        .style('font-size', '12px')
+        .style('fill', '#757575');
 
-    // Add chart title
+    // X-axis label
     svg.append('text')
         .attr('x', width / 2)
-        .attr('y', -30)
+        .attr('y', height + margin.bottom - 40)
         .attr('text-anchor', 'middle')
-        .style('font-size', '20px')
+        .style('font-size', '14px')
         .style('font-weight', 'bold')
-        .text(title);
+        .style('fill', '#424242')
+        .text('Year');
+
+    // Y-axis label
+    svg.append('text')
+        .attr('x', -height / 2)
+        .attr('y', -margin.left + 5)
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'rotate(-90)')
+        .style('font-size', '14px')
+        .style('font-weight', 'bold')
+        .style('fill', '#424242')
+        .text('New Deaths');
 
     // Tooltip
     const tooltip = d3.select('body')
         .append('div')
         .style('position', 'absolute')
         .style('visibility', 'hidden')
-        .style('background', '#fff')
-        .style('border', '1px solid #ccc')
-        .style('padding', '5px')
+        .style('background', '#FFFFFF')
+        .style('border', '1px solid #E0E0E0')
+        .style('padding', '10px')
         .style('border-radius', '5px')
-        .style('box-shadow', '0px 0px 10px rgba(0,0,0,0.1)');
+        .style('font-size', '12px')
+        .style('box-shadow', '0px 2px 6px rgba(0, 0, 0, 0.1)');
 
-    // Add bars
+    // Bars
     svg.selectAll('.bar')
-        .data(chartData.datasets.flatMap((dataset, i) => 
+        .data(chartData.datasets.flatMap((dataset, i) =>
             dataset.data.map((d, index) => ({
                 year: chartData.labels[index],
                 value: d,
+                country: dataset.label,
                 color: colors[i % colors.length],
             }))
         ))
         .enter()
         .append('rect')
-        .attr('x', d => xScale(d.year)) // Use xScale for years
+        .attr('x', d => xScale(d.year))
         .attr('y', d => yScale(d.value))
-        .attr('width', xScale.bandwidth()) // Use the full bandwidth of xScale
+        .attr('width', xScale.bandwidth())
         .attr('height', d => height - yScale(d.value))
         .attr('fill', d => d.color)
         .on('mouseover', (event, d) => {
             tooltip
                 .style('visibility', 'visible')
-                .text(`${d.year}: ${d.value}`);
+                .html(`<strong>${d.country}</strong><br>Year: ${d.year}<br>Deaths: ${d.value.toLocaleString()}`);
         })
         .on('mousemove', event => {
             tooltip
-                .style('top', `${event.pageY - 20}px`)
+                .style('top', `${event.pageY - 40}px`)
                 .style('left', `${event.pageX + 10}px`);
         })
         .on('mouseout', () => {
             tooltip.style('visibility', 'hidden');
         });
 
-    // Add legend
+    // Legend
     const legend = svg.append('g')
-        .attr('transform', `translate(${width - 150}, 0)`);
+        .attr('transform', `translate(${width - 200}, 0)`);
 
     chartData.datasets.forEach((dataset, i) => {
-        legend.append('rect')
+        const legendGroup = legend.append('g').attr('transform', `translate(0, ${i * 20})`);
+
+        legendGroup.append('rect')
             .attr('x', 0)
-            .attr('y', i * 20)
+            .attr('y', 0)
             .attr('width', 18)
             .attr('height', 18)
             .attr('fill', colors[i]);
 
-        legend.append('text')
+        legendGroup.append('text')
             .attr('x', 25)
-            .attr('y', i * 20 + 14)
+            .attr('y', 14)
             .text(dataset.label)
             .style('font-size', '12px')
-            .attr('alignment-baseline', 'middle');
+            .style('fill', '#424242');
     });
 }
 
 
 /**
- * Initializes the vaccination-death chart.
+ * Initializes the chart.
  */
 async function initializeVisualization() {
     const vaccinationData = await fetchCsvData(vaccinationDatasetUrl);
@@ -190,21 +207,19 @@ async function initializeVisualization() {
         return;
     }
 
-    const importantCountries = ['United States', 'United Kingdom', 'Russia', 'China', 'India', 'Germany', 'France', 'Japan', 'Canada'];
+    const countries = ['United States', 'United Kingdom', 'Russia', 'China', 'India', 'Germany', 'France', 'Japan', 'Canada'];
 
-    const combinedDataForDeaths = combineVaccinationAndDeathData(vaccinationData, covidData, importantCountries);
+    const combinedData = combineVaccinationAndDeathData(vaccinationData, covidData, countries);
 
     const chartData = {
         labels: ['2020', '2021', '2022', '2023'],
-        datasets: combinedDataForDeaths.map(entry => ({
+        datasets: combinedData.map(entry => ({
             label: entry.country,
             data: entry.yearlyDeaths,
         })),
     };
 
-    renderBarChart('vaccination-death-chart', 'New COVID-19 Deaths per Year', chartData);
+    renderBarChart('vaccination-death-chart', 'COVID-19 Deaths vs. Vaccinations', chartData);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    initializeVisualization();
-});
+document.addEventListener('DOMContentLoaded', initializeVisualization);
