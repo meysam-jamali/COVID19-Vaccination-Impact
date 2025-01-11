@@ -60,14 +60,14 @@
             })
             .filter(entry => entry !== null);
 
-        const width = 900;
+        const width = 800;
         const height = 400;
-        const margin = { top: 70, right: 50, bottom: 150, left: 80 };
+        const margin = { top: 150, right: 50, bottom: 150, left: 80 };
 
         const svg = d3.select('#vaccination-hospitalization-chart')
             .append('svg')
             .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
+            .attr('height', height + margin.top + margin.bottom + 100)
             .append('g')
             .attr('transform', `translate(${margin.left},${margin.top})`);
 
@@ -145,6 +145,11 @@
             .append('g')
             .attr('transform', d => `translate(${x0Scale(d.country)},0)`);
 
+        const yearVisibility = years.reduce((acc, year) => {
+            acc[year] = true; // Initially, all years are visible
+            return acc;
+        }, {});
+
         years.forEach((year, yearIndex) => {
             // Vaccination bars
             barGroups.selectAll(`.bar-${year}`)
@@ -157,9 +162,10 @@
                 .attr('width', x1Scale.bandwidth() / 2)
                 .attr('height', d => height - yScale(d.avgVaccinationRate))
                 .attr('fill', vaccinationColor)
+                .style('display', yearVisibility[year] ? 'block' : 'none')
                 .on('mouseover', (event, d) => {
                     tooltip.style('visibility', 'visible')
-                        .html(`<strong>Year:</strong> <b>${year}</b><br><strong>Vaccination Rate:</strong> <b>${d.avgVaccinationRate.toFixed(2)}%</b>`);
+                        .html(`<strong>Year:</strong> <span>${year}</span><br><strong>Vaccination Rate:</strong> <span>${d.avgVaccinationRate.toFixed(2)}%</span>`);
                 })
                 .on('mousemove', event => {
                     tooltip.style('top', `${event.pageY - 40}px`).style('left', `${event.pageX + 10}px`);
@@ -177,15 +183,47 @@
                 .attr('width', x1Scale.bandwidth() / 2)
                 .attr('height', d => height - yScale(d.avgHospitalizationRate))
                 .attr('fill', hospitalizationColor)
+                .style('display', yearVisibility[year] ? 'block' : 'none')
                 .on('mouseover', (event, d) => {
                     tooltip.style('visibility', 'visible')
-                        .html(`<strong>Year:</strong> <b>${year}</b><br><strong>Hospitalization Rate:</strong> <b>${d.avgHospitalizationRate.toFixed(2)}%</b>`);
+                        .html(`<strong>Year:</strong> <span>${year}</span><br><strong>Hospitalization Rate:</strong> <span>${d.avgHospitalizationRate.toFixed(2)}%</span>`);
                 })
                 .on('mousemove', event => {
                     tooltip.style('top', `${event.pageY - 40}px`).style('left', `${event.pageX + 10}px`);
                 })
                 .on('mouseout', () => tooltip.style('visibility', 'hidden'));
         });
+
+        // Append toggleContainer after the SVG
+        const toggleContainer = d3.select('#vaccination-hospitalization-chart')
+        .append('div')
+        .attr('class', 'toggle-container')
+        .style('display', 'flex')
+        .style('justify-content', 'center') // Center the buttons horizontally
+        .style('gap', '10px')
+        .style('margin-top', '20px') // Add some spacing above the buttons
+        .style('margin-bottom', '10px'); // Add some spacing below the buttons
+
+        // Add buttons for each year
+        years.forEach(year => {
+        const button = toggleContainer.append('button')
+            .text(year)
+            .style('padding', '8px 12px')
+            .style('border', '1px solid #ccc')
+            .style('border-radius', '4px')
+            .style('cursor', 'pointer')
+            .style('font-size', '12px')
+            .style('background-color', '#4CAF50') // Enabled state color
+            .style('color', '#FFF')
+            .on('click', () => {
+                yearVisibility[year] = !yearVisibility[year]; // Toggle visibility
+                d3.selectAll(`.bar-${year}, .bar-${year}-hospitalization`)
+                    .style('display', yearVisibility[year] ? 'block' : 'none');
+                button
+                    .style('background-color', yearVisibility[year] ? '#4CAF50' : '#F5F5F5') // Toggle color
+                    .style('color', yearVisibility[year] ? '#FFF' : '#000'); // Toggle text color
+            });
+        }); 
     }
 
     renderGroupedBarChart();

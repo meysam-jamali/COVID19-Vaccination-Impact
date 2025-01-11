@@ -8,6 +8,21 @@ body {
     line-height: 1.6;
 }
 
+h2 {
+    font-size: 1.8rem; /* Standard for section titles */
+    font-weight: 700;
+    color: #2c3e50; /* Neutral dark gray */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+p {
+    font-size: 1rem;
+    color: #757575; /* Muted gray */
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
 /* Header */
 .sticky-header {
     position: sticky;
@@ -26,7 +41,7 @@ body {
 
 .sticky-header .navbar-nav .nav-link {
     color: #555;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     margin-right: 15px;
     transition: color 0.3s;
@@ -36,46 +51,14 @@ body {
     color: #007bff;
 }
 
-/* Section Title Styles */
-section h2 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-section p {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* Cards */
-.card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    padding: 20px;
-}
-
-.card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-
-/* Slideshow */
+/* Slideshow Section */
 #slideshow {
     margin-bottom: 20px;
     overflow: hidden;
 }
 
 .carousel-inner {
-    height: 400px;
+    height: 550px;
     display: flex;
     align-items: center;
 }
@@ -94,37 +77,114 @@ section p {
     color: #ddd;
 }
 
-/* Visualization Containers */
-.visualization, .chart-container {
-    border-radius: 10px;
+/* Introduction Section */
+#intro {
+    background-color: #f5f5f5;
+    padding: 40px 0;
+}
+
+#intro .card {
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+}
+
+#intro h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+#intro p {
+    font-size: 1rem;
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+#intro p span {
+    color: #e53935;
+    font-weight: 600;
+}
+
+#intro .card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    transition: all 0.3s ease-in-out;
+}
+
+/* General Section Cards */
+.card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+}
+
+/* Section-Specific Styles */
+#global-trends,
+#progress-over-time,
+#vaccination-impact,
+#age-groups,
+#socioeconomic-factors,
+#gender-health-factors,
+#life-expectancy-vaccination,
+#role-of-government-policies,
+#vaccination-economic-recovery {
+    background-color: #f5f5f5;
+    padding: 40px 0;
+}
+
+#global-trends h2,
+#progress-over-time h2,
+#vaccination-impact h2,
+#age-groups h2,
+#socioeconomic-factors h2,
+#gender-health-factors h2,
+#life-expectancy-vaccination h2,
+#role-of-government-policies h2,
+#vaccination-economic-recovery h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#global-trends .chart-container,
+#progress-over-time .chart-container,
+#vaccination-impact .chart-container,
+#age-groups .chart-container,
+#socioeconomic-factors .chart-container,
+#gender-health-factors .chart-container,
+#life-expectancy-vaccination .chart-container,
+#role-of-government-policies .chart-container,
+#vaccination-economic-recovery .chart-container {
+    width: 100%;
+    height: 600px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 300px;
 }
 
-/* Dashboard Layout */
-.row.d-flex {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -10px;
-}
-
-.row .col-md-6, .row .col-md-12 {
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    background-color: #FAFAFA;
+    border: 1px solid #BDBDBD;
     padding: 10px;
-}
-
-.row .col-md-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-
-.row .col-md-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    color: #212121;
+    pointer-events: none;
+    z-index: 10000;
+    display: none;
 }
 
 /* Footer */
@@ -146,265 +206,25 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Responsive Styles */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .row .col-md-6 {
-        flex: 0 0 100%;
-        max-width: 100%;
+    .chart-container {
+        height: 300px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 0.9rem;
     }
 
     .carousel-inner {
         height: 300px;
     }
 
-    section h2 {
-        font-size: 1.5rem;
-    }
-
-    section p {
-        font-size: 0.9rem;
-    }
-}
-
-
-/* Introduction Section */
-/* Introduction Section */
-#intro {
-    background-color: #f5f5f5; /* Subtle gray background */
-    padding: 40px 0; /* Reduced padding for simplicity */
-}
-
-#intro .card {
-    background-color: #ffffff;
-    border: none;
-    border-radius: 8px; /* More modern, slightly sharper corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08); /* Light but effective shadow */
-    padding: 20px;
-}
-
-#intro h1 {
-    font-size: 1.5rem; /* Standard size for a modern look */
-    font-weight: 500; /* Medium weight for elegance */
-    color: #2c3e50; /* Dark neutral for accessibility */
-    margin-bottom: 10px; /* Minimal spacing */
-}
-
-#intro p {
-    font-size: 0.95rem; /* Slightly smaller for cleaner look */
-    color: #6c757d; /* Muted gray for text */
-    line-height: 1.6;
-    margin-bottom: 0;
-}
-
-#intro p span {
-    color: #e53935; /* Material red for emphasis */
-    font-weight: 600; /* Slightly bolder for visibility */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    #intro h1 {
-        font-size: 1.4rem; /* Adjusted for smaller screens */
-    }
-
-    #intro p {
-        font-size: 0.9rem; /* Adjusted for readability */
-    }
-}
-
-
-/* For hover effect on card */
-#intro .card:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transform: translateY(-3px);
-    transition: all 0.3s ease-in-out;
-}
-
-
-/* Section 1 */
-/* Global Trends Section */
-/* Global Trends Section */
-#global-trends {
-    background-color: #f5f5f5; /* Subtle light gray background */
-    padding: 40px 0;
-}
-
-#global-trends .card {
-    background-color: #ffffff;
-    border: none;
-    border-radius: 10px; /* Smooth, rounded edges */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Light shadow for depth */
-    padding: 20px;
-}
-
-#global-trends h2 {
-    font-size: 1.5rem; /* Compact size */
-    font-weight: 600;
-    color: #424242; /* Neutral dark gray */
-    margin-bottom: 15px;
-}
-
-#global-trends p {
-    font-size: 1rem;
-    color: #757575; /* Muted gray for descriptions */
-    margin-bottom: 0;
-    line-height: 1.6;
-}
-
-#global-trends .chart-container {
-     height: 600px;
-     /* Standardized height for visualizations */
-    background-color: #f0f4f8; /* Light gray for charts */
-    border-radius: 8px; /* Smooth edges */
-    border: 1px solid #e0e0e0; /* Subtle border */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#global-trends h4 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #424242; /* Neutral dark gray for subtitles */
-    margin-bottom: 15px;
-}
-
-#global-trends p span {
-    font-weight: 600;
-    color: #00897b; /* Material Teal for highlights */
-}
-
-#global-trends .text-teal-500 {
-    color: #00897b;
-}
-
-#global-trends .text-blue-900 {
-    color: #0d47a1;
-}
-
-.row.g-4 > * {
-    padding: 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    #global-trends h2 {
-        font-size: 1.4rem;
-    }
-
-    #global-trends h4 {
-        font-size: 1.1rem;
-    }
-
-    #global-trends .chart-container {
-        height: 250px;
-    }
-}
-
-/* Section 2 */
-/* Section: Progress Over Time */
-#progress-over-time .card {
-    background-color: #ffffff;
-    border: none;
-    border-radius: 10px; /* Smooth rounded edges */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
-    padding: 20px;
-}
-
-#progress-over-time h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #424242; /* Neutral dark gray */
-    margin-bottom: 15px;
-}
-
-#progress-over-time p {
-    font-size: 1rem;
-    color: #757575; /* Muted gray for descriptions */
-    line-height: 1.6;
-}
-
-#progress-over-time .chart-container {
-    width: 100%; /* Ensure chart spans the column */
-    height: 600px; 
-    /* Fixed height for charts */
-    background-color: #f9f9f9; /* Light background for contrast */
-    border-radius: 8px; /* Smooth edges */
-    border: 1px solid #ddd; /* Subtle border */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#progress-over-time h4 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #424242; /* Neutral dark gray for subtitles */
-    margin-bottom: 15px;
-}
-
-#progress-over-time p span {
-    font-weight: 600;
-    color: #00897b; /* Material teal for highlights */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    #progress-over-time .chart-container {
-        height: 250px; /* Adjust chart height for smaller screens */
-    }
-}
-
-/* Section 3 */
-/* Vaccination and Health Outcomes */
-#vaccination-impact .card {
-    background-color: #ffffff;
-    border: none;
-    border-radius: 10px; /* Smooth rounded edges */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
-    padding: 20px;
-}
-
-#vaccination-impact h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #424242; /* Neutral dark gray */
-    margin-bottom: 15px;
-}
-
-#vaccination-impact p {
-    font-size: 1rem;
-    color: #757575; /* Muted gray for descriptions */
-    line-height: 1.6;
-}
-
-#vaccination-impact .chart-container {
-    width: 100%; /* Ensure chart spans the column */
-    height: 600px; 
-    /* Fixed height for charts */
-    background-color: #f9f9f9; /* Light background for contrast */
-    border-radius: 8px; /* Smooth edges */
-    border: 1px solid #ddd; /* Subtle border */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#vaccination-impact h4 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #424242; /* Neutral dark gray for subtitles */
-    margin-bottom: 15px;
-}
-
-#vaccination-impact p span {
-    font-weight: 600;
-    color: #00897b; /* Material teal for highlights */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    #vaccination-impact .chart-container {
-        height: 250px; /* Adjust chart height for smaller screens */
+    footer {
+        font-size: 0.8rem;
     }
 }

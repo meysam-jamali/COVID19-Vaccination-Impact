@@ -160,7 +160,7 @@ function renderBarChart(containerId, title, chartData) {
         .on('mouseover', (event, d) => {
             tooltip
                 .style('visibility', 'visible')
-                .html(`<strong>${d.country}</strong><br>Year: ${d.year}<br>Deaths: ${d.value.toLocaleString()}`);
+                .html(`<strong>${d.country}</strong><br><b>Year:</b> ${d.year}<br><b>Deaths:</b> ${d.value.toLocaleString()}`);
         })
         .on('mousemove', event => {
             tooltip

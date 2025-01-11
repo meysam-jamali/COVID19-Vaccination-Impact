@@ -24,14 +24,13 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="#global-trends">Global Trends</a></li>
                         <li class="nav-item"><a class="nav-link" href="#progress-over-time">Progress Over Time</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#health-outcomes">Health Outcomes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#regional-comparisons">Regional Comparisons</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#vaccination-impact">Vaccination Impact</a></li>
                         <li class="nav-item"><a class="nav-link" href="#age-groups">Age Groups</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#efficacy-variants">Efficacy</a></li>
                         <li class="nav-item"><a class="nav-link" href="#socioeconomic-factors">Socioeconomic Factors</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#campaign-challenges">Challenges</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#supply-chain">Supply Chain</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#accessibility-equity">Accessibility</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#gender-health-factors">Gender Health Factors</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#life-expectancy-vaccination">Life Expectancy Vaccination</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#role-of-government-policies">Role of Government Policies</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#vaccination-economic-recovery">Vaccination Economic Recovery</a></li>
                     </ul>
                 </div>
             </nav>
@@ -39,12 +38,11 @@
     </header>
 
     <!-- Slideshow Section -->
-    <section id="slideshow">
+    <section id="slideshow" class="bg-light">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -65,15 +63,6 @@
                         <p>Tracking global vaccination efforts to combat COVID-19.</p>
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="image-wrapper">
-                        <img src="img/slide3.jpg" class="d-block w-100 carousel-image" alt="Vaccination Equity Challenges">
-                    </div>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Vaccination Equity Challenges</h5>
-                        <p>Addressing disparities in access to vaccines worldwide.</p>
-                    </div>
-                </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -86,50 +75,48 @@
         </div>
     </section>
 
-
    <!-- Introduction Section -->
-    <section id="intro" class="py-4">
+    <section id="intro" class="bg-light py-4">
         <div class="container">
-            <div class="card shadow border-0 p-4 rounded-3 bg-white">
-                <h1 class="fw-medium text-secondary text-center mb-3">COVID-19 and Vaccination Impact</h1>
+            <div class="card shadow-sm border-0 p-4 rounded-3 bg-white">
+                <h2 class="fw-bold text-secondary text-center mb-3">COVID-19 and Vaccination Impact</h2>
                 <p class="text-center text-muted mb-0">
                     Discover trends, analyze outcomes, and explore equity in vaccination through 
                     <span class="fw-bold text-danger">interactive visualizations</span>.
                 </p>
             </div>
         </div>
-    </section>
-
+    </section>  
     
     <!-- Section 1 -->
     <!-- Global Trends Section -->
-    <section id="global-trends" class="py-4">
+    <section id="global-trends" class="bg-light py-4">
         <div class="container">
             <div class="card shadow-sm border-0 rounded-3">
                 <div class="card-body">
                     <div class="text-center mb-4">
-                        <h2 class="fw-medium text-secondary text-center mb-3">Global Overview of Vaccination Trends</h2>
-                        <p class="text-muted text-justify">
+                        <h2 class="fw-bold text-secondary text-center mb-3">Global Overview of Vaccination Trends</h2>
+                        <p class="text-muted text-center">
                             This section visualizes global vaccination efforts using a choropleth map and a bar chart. 
                             The map shows vaccination rates by country, while the chart compares regional vaccination coverage.
                         </p>
                     </div>
                     <div class="row g-4">
                         <!-- Choropleth Map -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-flex flex-column align-items-center">
                             <h4 class="fw-semibold text-secondary text-center">Choropleth Map</h4>
                             <div id="choropleth-map" class="chart-container"></div>
-                            <p class="text-muted mt-3 text-justify">
+                            <p class="text-muted mt-3 text-center">
                                 <strong>Explanation:</strong> The map uses shades of blue to represent vaccination rates. 
                                 Lighter blue indicates lower vaccination rates, while darker blue indicates higher vaccination rates. 
                                 Hover over a country to see the exact percentage of the population vaccinated.
                             </p>
                         </div>
                         <!-- Bar Chart -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-flex flex-column align-items-center">
                             <h4 class="fw-semibold text-secondary text-center">Bar Chart</h4>
                             <div id="bar-chart" class="chart-container"></div>
-                            <p class="text-muted mt-3 text-justify">
+                            <p class="text-muted mt-3 text-center">
                                 <strong>Explanation:</strong> This chart compares average vaccination coverage across regions. 
                                 The height of each bar indicates the percentage of vaccinated people in the region. 
                                 All bars are styled in blue for consistency.
@@ -206,6 +193,12 @@
                         <div class="col-12 d-flex flex-column align-items-center">
                             <h4 class="fw-semibold text-secondary text-center">Vaccination vs. Hospitalization Rates</h4>
                             <div id="vaccination-hospitalization-chart" class="chart-container"></div>
+
+                            <!-- Toggle Buttons for Years -->
+                            <div id="toggle-buttons-container" class="text-center mt-4">
+                                <!-- Buttons will be added dynamically here by the script -->
+                            </div>
+
                             <p class="text-center mt-3">
                                 <strong>Explanation:</strong> This chart highlights the relationship between vaccination rates and hospitalization trends due to COVID-19.
                             </p>
@@ -218,96 +211,72 @@
 
     <!-- Section 4 -->
     <!-- Age Groups Section -->
-    <section id="age-groups" class="py-5 bg-light">
+    <section id="age-groups" class="bg-light py-5">
         <div class="container">
-            <!-- Combined Card for Title, Description, and Heatmap -->
             <div class="card shadow-sm border-0 rounded-3">
                 <div class="card-body">
-                    <!-- Title -->
-                    <h2 class="text-center fw-bold text-secondary">Vaccination Trends by Age Groups</h2>
-                    <!-- Description -->
-                    <p class="text-center text-muted">
-                        This heatmap visualizes the vaccination rates across age groups over time. Each cell represents a specific vaccination rate for an age group on a given date:
-                    </p>
-                    <!-- Legend -->
-                    <ul class="list-unstyled text-center mx-auto mb-4">
-                        <li class="mb-2">
-                            <span class="d-inline-block" style="width: 20px; height: 20px; background-color: #440154;"></span>
-                            <strong>Low (0%):</strong> Low vaccination rates
-                        </li>
-                        <li class="mb-2">
-                            <span class="d-inline-block" style="width: 20px; height: 20px; background-color: #3b528b;"></span>
-                            <strong>Medium (50%):</strong> Moderate vaccination rates
-                        </li>
-                        <li>
-                            <span class="d-inline-block" style="width: 20px; height: 20px; background-color: #fde725;"></span>
-                            <strong>High (100%):</strong> High vaccination rates
-                        </li>
-                    </ul>
-                    <!-- Heatmap Title -->
-                    <h4 class="fw-semibold text-secondary text-center mb-4">Age Group Heatmap</h4>
-                    <!-- Heatmap Chart -->
-                    <div id="chart-wrapper">
-                        <div id="age-group-chart" class="chart-container" style="min-height: 500px;"></div>
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-secondary">Vaccination Trends by Age Groups</h2>
+                        <p class="text-muted">
+                            Explore vaccination rates across age groups over time. The heatmap highlights disparities in vaccination rates among age groups.
+                        </p>
                     </div>
-                    <!-- Explanation -->
-                    <p class="text-center mt-3">
-                        <strong>Explanation:</strong> The heatmap shows vaccination trends across different age groups, highlighting disparities in vaccination rates over time.
-                    </p>
+                    <div class="row g-4">
+                        <!-- Heatmap Section -->
+                        <div class="col-12">
+                            <h4 class="fw-semibold text-secondary text-center">Age Group Heatmap</h4>
+                            <!-- Ensure the ID matches the JS function -->
+                            <div id="age-group-chart" class="chart-container" style="min-height: 500px;"></div>
+                            <p class="text-center mt-3">
+                                <strong>Explanation:</strong> This heatmap highlights vaccination trends over time for different age groups.
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <div id="heatmap-legend" class="mt-3 text-center"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-
-
-
-
-    <!-- Section 5 -->
-    <!-- Socioeconomic Factors Section -->
-    <section id="socioeconomic-factors" class="bg-white">
+   <!-- Section 5 - Socioeconomic Factors -->
+    <section id="socioeconomic-factors" class="bg-light py-5">
         <div class="container">
-            <h2 class="text-center">Socioeconomic Factors and Vaccination</h2>
-            <p class="text-center">
-                Explore how socioeconomic factors such as healthcare expenditure, income levels, and regions 
-                affect vaccination rates. These visualizations highlight disparities and correlations.
-            </p>
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-secondary">Socioeconomic Factors and Vaccination</h2>
+                        <p class="text-muted">
+                            Explore how socioeconomic factors such as healthcare expenditure, income levels, and regions affect vaccination rates. These visualizations highlight disparities and correlations.
+                        </p>
+                    </div>
+                    <div class="row g-4">
+                        <!-- Heatmap Section -->
+                        <div class="col-12 d-flex flex-column align-items-center">
+                            <h4 class="fw-semibold text-secondary text-center">Socioeconomic Heatmap</h4>
+                            <div id="socioeconomic-heatmap" class="chart-container"></div>
+                            <p class="text-center mt-3">
+                                <strong>Explanation:</strong> This heatmap visualizes the relationship between vaccination rates and socioeconomic factors like the Gini Index for selected countries.
+                            </p>
+                            <div id="heatmap-legend" class="mt-3 text-center">
+                                <!-- Heatmap legend will be rendered here -->
+                            </div>
+                        </div>
 
-            <!-- Heatmap Section -->
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="text-center">Heatmap</h3>
-                    <p>
-                        This heatmap visualizes the relationship between vaccination rates (per million) 
-                        and socioeconomic factors (Gini Index) for selected countries. 
-                        Countries with higher Gini Index values generally indicate greater income inequality. 
-                        Hover over a rectangle to see detailed data for a specific country.
-                    </p>
-                    <div id="socioeconomic-heatmap" class="visualization">
-                        <!-- Heatmap will be rendered here -->
-                    </div>
-                    <div id="heatmap-legend" class="mt-3 text-center">
-                        <!-- Heatmap legend will be rendered here -->
-                    </div>
-                </div>
-            </div>
+                        <hr class="hr" />
 
-            <!-- Grouped Bar Chart Section -->
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <h3 class="text-center">Grouped Bar Chart</h3>
-                    <p>
-                        This grouped bar chart allows you to compare vaccination rates (per million) and Gini Index values 
-                        (income inequality) for selected countries. Each country is represented as a group of two bars: 
-                        one for vaccination rates and one for Gini Index. Hover over the bars to see detailed information 
-                        for each country.
-                    </p>
-                    <div id="socioeconomic-bar-chart" class="visualization">
-                        <!-- Grouped Bar Chart will be rendered here -->
-                    </div>
-                    <div id="bar-chart-legend" class="mt-3 text-center">
-                        <!-- Bar chart legend will be rendered here -->
+                        <!-- Grouped Bar Chart Section -->
+                        <div class="col-12 d-flex flex-column align-items-center">
+                            <h4 class="fw-semibold text-secondary text-center">Grouped Bar Chart</h4>
+                            <div id="socioeconomic-bar-chart" class="chart-container"></div>
+                            <p class="text-center mt-3">
+                                <strong>Explanation:</strong> This grouped bar chart compares vaccination rates and the Gini Index (income inequality) for selected countries.
+                            </p>
+                            <div id="bar-chart-legend" class="mt-3 text-center">
+                                <!-- Bar chart legend will be rendered here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -318,34 +287,33 @@
     <!-- Gender and Health Factors Section -->
     <section id="gender-health-factors" class="bg-light py-5">
         <div class="container">
-            <h2 class="text-center">Gender and Health Factors</h2>
-            <p class="text-center">
-                This diverging bar chart highlights the relationship between smoking prevalence (male and female) and vaccination rates for selected countries. 
-                The focus is on key nations to provide clear and actionable insights into gender-based health factors affecting vaccination trends.
-            </p>
-    
-            <!-- Row for Diverging Bar Chart -->
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <h4 class="text-center">Diverging Bar Chart: Vaccination vs. Smoking Prevalence</h4>
-                    <div id="gender-health-diverging-bar" class="visualization">
-                        <!-- Diverging bar chart will be rendered here -->
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-secondary">Gender and Health Factors</h2>
+                        <p class="text-muted">
+                            This diverging bar chart highlights the relationship between smoking prevalence (male and female)
+                            and vaccination rates for selected countries. It focuses on key nations to provide actionable insights
+                            into gender-based health factors affecting vaccination trends.
+                        </p>
                     </div>
-                    <div id="gender-health-diverging-legend" class="text-center mt-3">
-                        <!-- Legend for diverging bar chart -->
+                    <div class="row g-4">
+                        <div class="col-12 d-flex flex-column align-items-center">
+                            <h4 class="fw-semibold text-secondary text-center">
+                                Diverging Bar Chart: Vaccination vs. Smoking Prevalence
+                            </h4>
+                            <div id="gender-health-diverging-bar" class="chart-container">
+                                <!-- Chart will be rendered here -->
+                            </div>
+                            <div id="gender-health-diverging-legend" class="text-center mt-3"></div>
+                            <p class="text-center mt-3">
+                                <strong>Explanation:</strong> Bars extending to the left represent vaccination rates for
+                                <span style="color: #26A69A;">female smokers</span>, while bars extending to the right
+                                represent vaccination rates for <span style="color: #6A1B9A;">male smokers</span>.
+                                This focused view highlights gender-based trends among selected countries.
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </div>
-    
-            <!-- Row for Explanation -->
-            <div class="row mt-5">
-                <div class="col-md-12 text-center">
-                    <p class="mt-4">
-                        <strong>Explanation:</strong> Bars extending to the left represent vaccination rates for 
-                        <span style="color: pink;">female smokers</span>, while bars extending to the right represent 
-                        vaccination rates for <span style="color: blue;">male smokers</span>. 
-                        This focused view makes it easier to identify key trends among selected countries.
-                    </p>
                 </div>
             </div>
         </div>
@@ -355,28 +323,34 @@
     <!-- Life Expectancy Vaccination -->
     <section id="life-expectancy-vaccination" class="bg-light py-5">
         <div class="container">
-            <h2 class="text-center">Life Expectancy and Vaccination Rates</h2>
-            <p class="text-center">
-                This bar chart represents the average vaccination rates (per million) categorized by life expectancy ranges. 
-                It highlights how vaccination rates vary among nations with differing levels of life expectancy.
-            </p>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="life-expectancy-scatterplot" class="visualization">
-                        <!-- Bar chart will be rendered here -->
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-secondary">Life Expectancy and Vaccination Rates</h2>
+                        <p class="text-muted">
+                            This bar chart represents the average vaccination rates (per million) categorized by life expectancy ranges. 
+                            It highlights how vaccination rates vary among nations with differing levels of life expectancy.
+                        </p>
                     </div>
-                    <div id="life-expectancy-legend" class="text-center mt-3">
-                        <span style="color: #6A1B9A; font-size: 14px;">&#9646;</span> Average Vaccination Rate (per million)
-                    </div>
-                </div>
-            </div>
 
-            <div class="row mt-4">
-                <div class="col-md-12 text-center">
-                    <p>
-                        “The x-axis displays life expectancy ranges (e.g., 60–64 years), representing countries where the average life expectancy falls within this range—not the age of individuals. The y-axis shows the average vaccination rate per million people for countries within each range. The chart is sorted in ascending order by life expectancy, making it easy to compare vaccination rates across different ranges.”
-                    </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="life-expectancy-scatterplot" class="chart-container">
+                                <!-- Bar chart will be rendered here -->
+                            </div>
+                            <div id="life-expectancy-legend" class="text-center mt-3">
+                                <span style="color: #6A1B9A; font-size: 14px;">&#9646;</span> Average Vaccination Rate (per million)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-center">
+                            <p class="text-muted">
+                                “The x-axis displays life expectancy ranges (e.g., 60–64 years), representing countries where the average life expectancy falls within this range—not the age of individuals. The y-axis shows the average vaccination rate per million people for countries within each range. The chart is sorted in ascending order by life expectancy, making it easy to compare vaccination rates across different ranges.”
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -386,31 +360,37 @@
     <!-- Role of government policies -->
     <section id="role-of-government-policies" class="bg-light py-5">
         <div class="container">
-            <h2 class="text-center">Role of Government Policies</h2>
-            <p class="text-center">
-                This visualization explores the relationship between the stringency of COVID-19 policies 
-                (e.g., lockdowns, mask mandates) and vaccination rates. By comparing vaccination rates against 
-                the stringency index, we can assess whether stricter policies encouraged or hindered vaccination efforts.
-            </p>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="policy-impact-chart" class="visualization">
-                        <!-- Scatter plot or bar chart will be rendered here -->
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-secondary">Role of Government Policies</h2>
+                        <p class="text-muted">
+                            This visualization explores the relationship between the stringency of COVID-19 policies 
+                            (e.g., lockdowns, mask mandates) and vaccination rates. By comparing vaccination rates against 
+                            the stringency index, we can assess whether stricter policies encouraged or hindered vaccination efforts.
+                        </p>
                     </div>
-                    <div id="policy-impact-legend" class="text-center mt-3">
-                        <!-- Legend will be added here -->
-                    </div>
-                </div>
-            </div>
 
-            <div class="row mt-4">
-                <div class="col-md-12 text-center">
-                    <p>
-                        The x-axis represents the stringency index (0–100), which measures the strictness of 
-                        government policies, while the y-axis displays the vaccination rates (per million people). 
-                        This chart helps evaluate how policy strictness correlates with vaccination rates across countries.
-                    </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="policy-impact-chart" class="chart-container">
+                                <!-- Scatter plot or bar chart will be rendered here -->
+                            </div>
+                            <div id="policy-impact-legend" class="text-center mt-3">
+                                <!-- Legend will be dynamically added -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-center">
+                            <p class="text-muted">
+                                The x-axis represents the stringency index (0–100), which measures the strictness of 
+                                government policies, while the y-axis displays the vaccination rates (per million people). 
+                                This chart helps evaluate how policy strictness correlates with vaccination rates across countries.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -420,32 +400,37 @@
     <!-- Vaccination and Economic Recovery -->
     <section id="vaccination-economic-recovery" class="bg-light py-5">
         <div class="container">
-            <h2 class="text-center">Vaccination and Economic Recovery</h2>
-            <p class="text-center">
-                This box plot visualizes the distribution of GDP per capita across vaccination rate intervals. 
-                The red line represents the average GDP per capita for each group.
-            </p>
-
-            <p class="text-center">
-                By observing this chart, we can understand how vaccination rates correlate with economic 
-                recovery.
-            </p>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="economic-recovery-boxplot" class="visualization">
-                        <!-- Box plot will be rendered here -->
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-secondary">Vaccination and Economic Recovery</h2>
+                        <p class="text-muted">
+                            This box plot visualizes the distribution of GDP per capita across vaccination rate intervals. 
+                            The red line represents the average GDP per capita for each group.
+                        </p>
+                        <p class="text-muted">
+                            By observing this chart, we can understand how vaccination rates correlate with economic 
+                            recovery.
+                        </p>
                     </div>
-                </div>
-            </div>
 
-            <div class="row mt-4">
-                <div class="col-md-12 text-center">
-                    <p>
-                        <strong>Key Insights:</strong> Higher vaccination rates may correlate with improved economic 
-                        performance. Use this chart to identify outliers or patterns within specific vaccination 
-                        ranges and time periods.
-                    </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="economic-recovery-boxplot" class="chart-container">
+                                <!-- Box plot will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-center">
+                            <p class="text-muted">
+                                <strong>Key Insights:</strong> Higher vaccination rates may correlate with improved economic 
+                                performance. Use this chart to identify outliers or patterns within specific vaccination 
+                                ranges and time periods.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -468,28 +453,27 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Sections -->
     <!-- Section 1 - Global Trends -->
-    <script src="js/section-1/global-trends-bar-chart.js"></script>
-    <script src="js/section-1/global-trends-choropleth-map.js"></script>
+    <script src="js/section-1-global-trends/global-trends-bar-chart.js"></script>
+    <script src="js/section-1-global-trends/global-trends-choropleth-map.js"></script>
     <!-- Section 2 - Progress Over Time -->
-    <script src="js/section-2/progress-over-time-bar-chart.js"></script>    
-    <script src="js/section-2/progress-over-time-stacked-area-chart.js"></script>    
+    <script src="js/section-2-progress-over-time/progress-over-time-line-chart.js"></script>    
+    <script src="js/section-2-progress-over-time/progress-over-time-stacked-area-chart.js"></script>    
     <!-- Section 3 - Health Outcomes -->
-    <script src="js/section-3/health-outcomes-stacked-bar-chart.js"></script>
-    <script src="js/section-3/health-outcomes-grouped-bar-chart.js"></script>   
+    <script src="js/section-3-vaccination-impact/vaccination-impact-stacked-bar-chart.js"></script>
+    <script src="js/section-3-vaccination-impact/vaccination-impact-grouped-bar-chart.js"></script>   
     <!-- Section 4 - Age Groups -->
-    <script src="js/section-4/age-groups-heatmap.js"></script>   
-    <!-- Socioeconomic Factors -->
-    <!-- <script src="js/socioeconomic-factors-heatmap.js"></script> -->
-    <!-- <script src="js/socioeconomic-factors-grouped-bar-chart.js"></script> -->
-    <!-- Gender and Health Factors Section -->
-    <!-- <script src="js/gender-health-factors-diverging-bar-chart.js"></script> -->
-    <!-- Life Expectancy Vaccination -->
-    <!-- <script src="js/life-expectancy-vaccination-bar-chart.js"></script> -->
-    <!-- Section 8 -->
-    <!-- Role of government policies -->
-    <!-- <script src="js/role-of-government-policies-proportional-symbol-maps.js"></script>  -->
-    <!-- Section 9 -->
-    <!-- <script src="js/vaccination-and-economic-recovery-scatter-plot.js"></script>  -->
+    <script src="js/section-4-age-groups/age-groups-heatmap.js"></script>   
+    <!-- Section 5 - Socioeconomic Factors -->
+    <script src="js/section-5-socioeconomic-factors/socioeconomic-factors-heatmap.js"></script>
+    <script src="js/section-5-socioeconomic-factors/socioeconomic-factors-grouped-bar-chart.js"></script>
+    <!-- Section 6 - Gender and Health Factors Section -->
+    <script src="js/section-6-gender-and-helath-factors/gender-health-factors-diverging-bar-chart.js"></script>
+    <!-- Section 7 - Life Expectancy Vaccination -->
+    <script src="js/section-7-life-expectancy-vaccination/life-expectancy-vaccination-bar-chart.js"></script>
+    <!-- Section 8 - Role of government policies -->
+    <script src="js/section-8-role-of-government-policies/role-of-government-policies-proportional-symbol-maps.js"></script> 
+    <!-- Section 9 - Vaccination and Economic Recovery -->
+    <script src="js/section-9-vaccination-and-economic-recovery/vaccination-and-economic-recovery-scatter-plot.js"></script> 
     <!-- Main JS -->
     <script src="js/main.js"></script>
 </body>

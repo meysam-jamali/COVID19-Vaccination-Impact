@@ -11,6 +11,21 @@
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    // Tooltip
+    const lifeExpectancyTooltip = d3.select("body")
+        .append("div")
+        .attr("class", "life-expectancy-tooltip")
+        .style("position", "absolute")
+        .style("background-color", "#FAFAFA") // Material Gray 50
+        .style("border", "1px solid #BDBDBD") // Material Gray 400
+        .style("padding", "10px")
+        .style("border-radius", "8px")
+        .style("box-shadow", "0px 4px 8px rgba(0, 0, 0, 0.15)")
+        .style("font-size", "12px")
+        .style("pointer-events", "none")
+        .style("z-index", 10000)
+        .style("display", "none");
+
     d3.csv("/data/Section 5/owid-covid-data.csv").then(data => {
         const selectedCountries = ["USA", "BRA", "IND", "CHN", "GBR", "FRA", "DEU", "JPN", "ZAF", "RUS", "ITA", "CAN", "AUS"];
         
@@ -48,7 +63,25 @@
             .attr("y", d => yScale(d.avgVaccinationRate))
             .attr("width", xScale.bandwidth())
             .attr("height", d => height - yScale(d.avgVaccinationRate))
-            .attr("fill", "#6A1B9A");
+            .attr("fill", "#6A1B9A") // Material Purple 700
+            .on("mouseover", (event, d) => {
+                // console.log("Mouse over event triggered:", d); // Debug log for mouseover
+                lifeExpectancyTooltip.style("display", "block")
+                    .html(`
+                        <strong>Life Expectancy Range:</strong> ${d.range}-${d.range + 4} years<br>
+                        <strong>Avg Vaccination Rate:</strong> ${d.avgVaccinationRate.toFixed(2)} per million
+                    `);
+            })
+            .on("mousemove", event => {
+                // console.log("Mouse move event triggered:", event.pageX, event.pageY); // Debug log for mousemove
+                lifeExpectancyTooltip
+                    .style("left", `${event.pageX + 15}px`)
+                    .style("top", `${event.pageY - 25}px`);
+            })
+            .on("mouseout", () => {
+                // console.log("Mouse out event triggered"); // Debug log for mouseout
+                lifeExpectancyTooltip.style("display", "none");
+            });
 
         // Axes
         svg.append("g")
@@ -73,6 +106,26 @@
             .attr("text-anchor", "middle")
             .style("font-size", "14px")
             .text("Average Vaccination Rate (per million)");
+
+        // Legend
+        const legend = svg.append("g")
+        .attr("transform", `translate(${width / 2 - 100}, 10)`); // Shifted more to the left
+
+        legend.append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 20)
+        .attr("height", 20)
+        .attr("fill", "#6A1B9A"); // Material Purple 700
+
+        legend.append("text")
+        .attr("x", 30)
+        .attr("y", 15)
+        .text("Avg Vaccination Rate")
+        .style("font-size", "14px")
+        .style("alignment-baseline", "middle");
+
+
     }).catch(error => {
         console.error("Error loading or processing data:", error);
     });

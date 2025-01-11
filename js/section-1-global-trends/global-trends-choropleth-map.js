@@ -119,7 +119,7 @@
         const legendHeight = 20;
 
         const legendSvg = svg.append('g')
-            .attr('transform', `translate(${(width - legendWidth) / 2}, ${height - margin.bottom})`);
+            .attr('transform', `translate(${(width - legendWidth) / 2 - 90}, ${height - margin.bottom + -20})`); // Centered and with margin-top of 30px
 
         // Gradient for the legend
         const defs = svg.append('defs');

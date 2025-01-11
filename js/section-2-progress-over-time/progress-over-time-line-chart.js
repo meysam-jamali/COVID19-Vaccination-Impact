@@ -67,11 +67,13 @@
             .append('div')
             .style('position', 'absolute')
             .style('visibility', 'hidden')
-            .style('background', '#fff')
-            .style('border', '1px solid #ccc')
-            .style('padding', '5px')
-            .style('border-radius', '5px')
-            .style('box-shadow', '0px 0px 10px rgba(0,0,0,0.1)');
+            .style('background', '#FAFAFA')
+            .style('border', '1px solid #E0E0E0')
+            .style('padding', '10px')
+            .style('border-radius', '8px')
+            .style('font-size', '14px') // Adjusted font size
+            .style('box-shadow', '0px 2px 6px rgba(0,0,0,0.1)');
+
 
         // Add circles for data points and tooltips
         svg.selectAll('circle')
@@ -88,8 +90,11 @@
                 const vaccinations = d.total_vaccinations ? d.total_vaccinations.toLocaleString() : 'No data';
                 tooltip
                     .style('visibility', 'visible')
-                    .html(`Date: ${formattedDate}<br>Cumulative: ${vaccinations}`);
-            })
+                    .html(`
+                        <strong>Date:</strong> ${formattedDate}<br>
+                        <strong>Cumulative:</strong> ${vaccinations}
+                    `);
+            })                      
             .on('mousemove', (event) => {
                 tooltip
                     .style('top', `${event.pageY - 40}px`)

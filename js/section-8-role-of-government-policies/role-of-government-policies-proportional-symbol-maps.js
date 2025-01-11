@@ -2,7 +2,7 @@
     const width = 960;
     const height = 600;
 
-    console.log("Initializing map...");
+    // console.log("Initializing map...");
 
     // Append SVG for the map
     const svg = d3.select("#policy-impact-chart") // Correct ID
@@ -10,7 +10,7 @@
         .attr("width", width)
         .attr("height", height);
 
-    console.log("SVG element created.");
+    // console.log("SVG element created.");
 
     const projection = d3.geoNaturalEarth1()
         .scale(160)
@@ -25,14 +25,14 @@
         .domain([0, 100]) // For vaccination rate (%)
         .range([1, 15]); // Reduced circle size range for better clarity
 
-    console.log("Scales and projection set.");
+    // console.log("Scales and projection set.");
 
     // Load GeoJSON and CSV data
     Promise.all([
         d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),
         d3.csv("/data/Section 5/owid-covid-data.csv")
     ]).then(([geojson, data]) => {
-        console.log("GeoJSON and CSV data loaded successfully.");
+        // console.log("GeoJSON and CSV data loaded successfully.");
 
         // Filter and process CSV data
         const countryData = data
@@ -45,7 +45,7 @@
                 return acc;
             }, {});
 
-        console.log("Processed country data:", countryData);
+        // console.log("Processed country data:", countryData);
 
         // Draw the map
         svg.append("g")
@@ -56,11 +56,11 @@
             .attr("fill", "#e0e0e0")
             .attr("stroke", "#888");
 
-        console.log("Map paths drawn.");
+        // console.log("Map paths drawn.");
 
         // Filter GeoJSON features for countries that exist in the CSV data
         const filteredFeatures = geojson.features.filter(d => countryData[d.properties.name]);
-        console.log("Filtered GeoJSON features for valid countries:", filteredFeatures);
+        // console.log("Filtered GeoJSON features for valid countries:", filteredFeatures);
 
         // Add proportional symbols (circles)
         svg.append("g")
@@ -76,14 +76,18 @@
             .on("mouseover", (event, d) => {
                 const country = d.properties.name;
                 const data = countryData[country];
-                const tooltip = d3.select("#policy-impact-chart")
+                const tooltip = d3.select("body")
                     .append("div")
-                    .attr("class", "tooltip")
+                    .attr("class", "role-of-government-policies-tooltip") // Unique class name
                     .style("position", "absolute")
-                    .style("background-color", "#fff")
-                    .style("border", "1px solid #ccc")
+                    .style("background-color", "#FAFAFA") // Material Gray 50
+                    .style("border", "1px solid #BDBDBD") // Material Gray 400
                     .style("padding", "10px")
                     .style("border-radius", "4px")
+                    .style("box-shadow", "0px 4px 8px rgba(0, 0, 0, 0.15)")
+                    .style("font-size", "12px")
+                    .style("pointer-events", "none")
+                    .style("z-index", 10000)
                     .style("display", "block")
                     .html(`
                         <strong>Country:</strong> ${country}<br>
@@ -92,63 +96,67 @@
                     `);
                 tooltip.style("left", `${event.pageX + 10}px`).style("top", `${event.pageY + 10}px`);
             })
-            .on("mouseout", () => d3.select(".tooltip").remove());
+            .on("mouseout", () => d3.select(".role-of-government-policies-tooltip").remove());            
 
-        console.log("Proportional symbols added.");
+        // console.log("Proportional symbols added.");
 
         // Add legend for bubble size
         const sizeLegend = svg.append("g")
-            .attr("transform", `translate(20, 200)`); // Moved to the left side
+        .attr("transform", `translate(40, 180)`); // Increased distance from top by 30px
 
         sizeLegend.append("text")
-            .attr("x", 0)
-            .attr("y", 0)
-            .text("Bubble Size: Vaccination Rate (%)")
-            .style("font-size", "12px")
-            .style("font-weight", "bold");
+        .attr("x", 0)
+        .attr("y", 0)
+        .text("Bubble Size: Vaccination Rate (%)")
+        .style("font-size", "11px")
+        .style("font-weight", "bold")
+        .style("fill", "#212121"); // Material Gray 900
 
         [10, 50, 100].forEach((rate, i) => {
-            sizeLegend.append("circle")
-                .attr("cx", 20)
-                .attr("cy", 30 + i * 30)
-                .attr("r", sizeScale(rate))
-                .attr("fill", "none")
-                .attr("stroke", "black");
+        sizeLegend.append("circle")
+            .attr("cx", 20)
+            .attr("cy", 30 + i * 30)
+            .attr("r", sizeScale(rate))
+            .attr("fill", "none")
+            .attr("stroke", "#616161"); // Material Gray 700
 
-            sizeLegend.append("text")
-                .attr("x", 50)
-                .attr("y", 35 + i * 30)
-                .text(`${rate}%`)
-                .style("font-size", "10px");
+        sizeLegend.append("text")
+            .attr("x", 50)
+            .attr("y", 35 + i * 30)
+            .text(`${rate}%`)
+            .style("font-size", "10px")
+            .style("fill", "#424242"); // Material Gray 800
         });
 
         // Add legend for color scale
         const colorLegend = svg.append("g")
-            .attr("transform", `translate(20, 350)`); // Moved to the left side
+        .attr("transform", `translate(40, 330)`); // Increased distance from top by 30px
 
         colorLegend.append("text")
-            .attr("x", 0)
-            .attr("y", 0)
-            .text("Color: Stringency Index")
-            .style("font-size", "12px")
-            .style("font-weight", "bold");
+        .attr("x", 0)
+        .attr("y", 0)
+        .text("Color: Stringency Index")
+        .style("font-size", "11px")
+        .style("font-weight", "bold")
+        .style("fill", "#212121"); // Material Gray 900
 
         [20, 50, 80].forEach((index, i) => {
-            colorLegend.append("rect")
-                .attr("x", 0)
-                .attr("y", 20 + i * 20)
-                .attr("width", 20)
-                .attr("height", 10)
-                .attr("fill", colorScale(index));
+        colorLegend.append("rect")
+            .attr("x", 0)
+            .attr("y", 20 + i * 20)
+            .attr("width", 20)
+            .attr("height", 10)
+            .attr("fill", colorScale(index));
 
-            colorLegend.append("text")
-                .attr("x", 30)
-                .attr("y", 30 + i * 20)
-                .text(`${index}`)
-                .style("font-size", "10px");
+        colorLegend.append("text")
+            .attr("x", 30)
+            .attr("y", 30 + i * 20)
+            .text(`${index}`)
+            .style("font-size", "10px")
+            .style("fill", "#424242"); // Material Gray 800
         });
 
-        console.log("Legends added.");
+        // console.log("Legends added.");
     }).catch(error => {
         console.error("Error loading or processing data:", error);
     });
