@@ -16,7 +16,7 @@
         .append("div")
         .attr("class", "section-7-life-expectancy-vaccination-bar-chart-tooltip");
 
-    d3.csv("/data/Section 5/owid-covid-data.csv").then(data => {
+    d3.csv("/data/Section-5/owid-covid-data.csv").then(data => {
         const selectedCountries = ["USA", "BRA", "IND", "CHN", "GBR", "FRA", "DEU", "JPN", "ZAF", "RUS", "ITA", "CAN", "AUS"];
         
         // Process data

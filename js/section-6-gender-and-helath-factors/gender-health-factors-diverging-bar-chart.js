@@ -22,8 +22,8 @@
     const selectedCountries = ["USA", "BRA", "IND", "CHN", "GBR", "FRA", "DEU", "JPN", "ZAF", "RUS", "ITA", "CAN", "AUS"];
 
     Promise.all([
-        d3.csv("/data/Section 5/owid-covid-data.csv"),
-        d3.csv("/data/Section 5/WIID_28NOV2023.csv")
+        d3.csv("/data/Section-5/owid-covid-data.csv"),
+        d3.csv("/data/Section-5/WIID_28NOV2023.csv")
     ])
         .then(([vaccinationData]) => {
             const filteredVaccinationData = vaccinationData

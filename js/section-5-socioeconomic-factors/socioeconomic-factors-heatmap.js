@@ -3,8 +3,8 @@
     const width = 650 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-    const vaccinationDataUrl = "/data/Section 5/owid-covid-data.csv";
-    const socioeconomicDataUrl = "/data/Section 5/WIID_28NOV2023.csv";
+    const vaccinationDataUrl = "/data/Section-5/owid-covid-data.csv";
+    const socioeconomicDataUrl = "/data/Section-5/WIID_28NOV2023.csv";
 
     const svgHeatmap = d3.select("#socioeconomic-heatmap")
         .append("svg")

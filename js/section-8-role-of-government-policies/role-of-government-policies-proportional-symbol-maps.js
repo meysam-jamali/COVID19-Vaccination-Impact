@@ -20,7 +20,7 @@
     // Load GeoJSON and CSV data
     Promise.all([
         d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),
-        d3.csv("/data/Section 5/owid-covid-data.csv")
+        d3.csv("/data/Section-5/owid-covid-data.csv")
     ]).then(([geojson, data]) => {
         const countryData = data
             .filter(d => d.stringency_index && d.people_fully_vaccinated_per_hundred)

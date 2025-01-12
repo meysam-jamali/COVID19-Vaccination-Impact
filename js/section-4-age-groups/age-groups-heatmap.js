@@ -1,5 +1,5 @@
 (() => {
-    const ageGroupDatasetUrl = './data/Section 4/vaccinations-age.csv';
+    const ageGroupDatasetUrl = './data/Section-4/vaccinations-age.csv';
 
     async function fetchCsvData(url) {
         try {

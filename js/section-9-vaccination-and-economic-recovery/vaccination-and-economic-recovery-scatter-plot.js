@@ -29,7 +29,7 @@
     const xScale = d3.scaleBand().range([0, width - margin.left - margin.right]).padding(0.2);
     const yScale = d3.scaleLinear().range([height - margin.top - margin.bottom, 0]);
 
-    d3.csv("/data/Section 5/owid-covid-data.csv").then(data => {
+    d3.csv("/data/Section-5/owid-covid-data.csv").then(data => {
         const processedData = d3.groups(
             data
                 .filter(d => d.people_fully_vaccinated_per_hundred && d.gdp_per_capita)

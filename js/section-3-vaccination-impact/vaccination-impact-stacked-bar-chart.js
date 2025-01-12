@@ -1,6 +1,6 @@
 // Paths to datasets
-const vaccinationDatasetUrl = './data/Section 3/vaccination-data.csv';
-const covidDatasetUrl = './data/Section 3/WHO-COVID-19-global-data.csv';
+const vaccinationDatasetUrl = './data/Section-3/vaccination-data.csv';
+const covidDatasetUrl = './data/Section-3/WHO-COVID-19-global-data.csv';
 
 /**
  * Fetch and parse CSV data.

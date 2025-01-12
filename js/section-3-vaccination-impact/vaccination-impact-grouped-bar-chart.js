@@ -1,6 +1,6 @@
 (() => {
-    const vaccinationDataFile = './data/Section 3/Vaccinations_global.csv';
-    const hospitalizationDataFile = './data/Section 3/Hospitalization.csv';
+    const vaccinationDataFile = './data/Section-3/Vaccinations_global.csv';
+    const hospitalizationDataFile = './data/Section-3/Hospitalization.csv';
 
     async function fetchData(url) {
         try {
