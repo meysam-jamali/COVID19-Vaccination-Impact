@@ -1,0 +1,31 @@
+.section-5-socioeconomic-factors-heatmap-tooltip {
+    position: absolute;
+    background-color: #FAFAFA;
+    border: 1px solid #BDBDBD;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 1000;
+    visibility: hidden;
+}
+
+.section-5-socioeconomic-factors-heatmap-axis-text {
+    font-weight: bold;
+    fill: #424242;
+}
+
+.section-5-socioeconomic-factors-heatmap-x-label,
+.section-5-socioeconomic-factors-heatmap-y-label {
+    font-size: 14px;
+    font-weight: bold;
+    fill: #424242;
+    text-anchor: middle;
+}
+
+.section-5-socioeconomic-factors-heatmap-legend-label {
+    font-size: 10px; /* Smaller size */
+    margin-top: 10px; /* Increased spacing */
+    font-weight: bold;
+}

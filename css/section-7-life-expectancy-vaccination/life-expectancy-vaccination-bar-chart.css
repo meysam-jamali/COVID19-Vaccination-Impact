@@ -1,0 +1,27 @@
+.section-7-life-expectancy-vaccination-bar-chart-tooltip {
+    position: absolute;
+    background-color: #FAFAFA; /* Material Gray 50 */
+    border: 1px solid #BDBDBD; /* Material Gray 400 */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 10000;
+    display: none;
+}
+
+.section-7-life-expectancy-vaccination-bar-chart-bar {
+    fill: #6A1B9A; /* Material Purple 700 */
+}
+
+.section-7-life-expectancy-vaccination-bar-chart-x-label,
+.section-7-life-expectancy-vaccination-bar-chart-y-label {
+    font-size: 14px;
+    text-anchor: middle;
+}
+
+.section-7-life-expectancy-vaccination-bar-chart-legend {
+    font-size: 14px;
+    alignment-baseline: middle;
+}

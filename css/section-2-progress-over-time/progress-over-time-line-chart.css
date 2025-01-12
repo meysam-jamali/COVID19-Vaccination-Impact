@@ -1,0 +1,56 @@
+/* Tooltip styling for section-2-progress-over-time-line-chart */
+.section-2-progress-over-time-line-chart-tooltip {
+    position: absolute;
+    visibility: hidden;
+    background: #FAFAFA;
+    border: 1px solid #E0E0E0;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Circle data point styling for section-2-progress-over-time-line-chart */
+.section-2-progress-over-time-line-chart-circle {
+    fill: rgba(54, 162, 235, 1);
+    r: 4;
+}
+
+/* Line styling for section-2-progress-over-time-line-chart */
+.section-2-progress-over-time-line-chart-path {
+    fill: none;
+    stroke: rgba(54, 162, 235, 1);
+    stroke-width: 2;
+}
+
+/* X-axis text styling for section-2-progress-over-time-line-chart */
+.section-2-progress-over-time-line-chart-x-axis text {
+    text-anchor: end;
+    transform: rotate(-45deg);
+}
+
+/* X-axis label styling for section-2-progress-over-time-line-chart */
+.section-2-progress-over-time-line-chart-x-axis-label {
+    font-size: 14px;
+    font-weight: 600;
+    text-anchor: middle;
+}
+
+/* Y-axis label styling for section-2-progress-over-time-line-chart */
+.section-2-progress-over-time-line-chart-y-axis-label {
+    font-size: 14px;
+    font-weight: 600;
+    text-anchor: middle;
+}
+
+/* Legend styling for section-2-progress-over-time-line-chart */
+.section-2-progress-over-time-line-chart-legend {
+    font-size: 12px;
+    alignment-baseline: middle;
+}
+
+.section-2-progress-over-time-line-chart-legend-rect {
+    fill: rgba(54, 162, 235, 1);
+    width: 18px;
+    height: 18px;
+}

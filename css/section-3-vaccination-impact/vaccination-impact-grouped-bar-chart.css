@@ -1,0 +1,35 @@
+/* Tooltip */
+.section-3-vaccination-impact-grouped-bar-chart-tooltip {
+    position: absolute;
+    visibility: hidden;
+    background: #FAFAFA;
+    border: 1px solid #E0E0E0;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+/* X-axis text */
+.section-3-vaccination-impact-grouped-bar-chart-x-axis-text {
+    transform: rotate(-45deg);
+    text-anchor: end;
+    font-size: 12px;
+    fill: #757575;
+}
+
+/* X-axis label */
+.section-3-vaccination-impact-grouped-bar-chart-x-axis-label {
+    font-size: 14px;
+    font-weight: 600;
+    fill: #424242;
+    text-anchor: middle;
+}
+
+/* Y-axis label */
+.section-3-vaccination-impact-grouped-bar-chart-y-axis-label {
+    font-size: 14px;
+    font-weight: 600;
+    fill: #424242;
+    text-anchor: middle;
+}

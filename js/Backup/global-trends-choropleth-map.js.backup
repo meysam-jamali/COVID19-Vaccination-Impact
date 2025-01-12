@@ -2,14 +2,26 @@
     const geoJsonUrl = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
     const vaccinationDataUrl = 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.json';
 
-    const lightTheme = {
-        background: '#fff',
-        countryFillNoData: '#ccc',
-        border: '#333',
-        tooltipBackground: '#fff',
-        tooltipBorder: '#ccc',
-        legendText: '#000',
+    const themes = {
+        light: {
+            background: '#fff',
+            countryFillNoData: '#ccc',
+            border: '#333',
+            tooltipBackground: '#fff',
+            tooltipBorder: '#ccc',
+            legendText: '#000',
+        },
+        dark: {
+            background: '#222',
+            countryFillNoData: '#444',
+            border: '#aaa',
+            tooltipBackground: '#444',
+            tooltipBorder: '#888',
+            legendText: '#fff',
+        },
     };
+
+    const currentTheme = themes.light; // Toggle between light and dark modes
 
     async function fetchData(url) {
         try {
@@ -40,7 +52,7 @@
             .append('svg')
             .attr('width', width)
             .attr('height', height)
-            .style('background-color', lightTheme.background);
+            .style('background-color', currentTheme.background);
 
         const projection = d3.geoMercator()
             .scale(130)
@@ -67,15 +79,14 @@
         // Tooltip
         const tooltip = d3.select('body')
             .append('div')
-            .attr('class', 'global-trends-choropleth-map-tooltip')
             .style('position', 'absolute')
             .style('visibility', 'hidden')
-            .style('background', lightTheme.tooltipBackground)
-            .style('border', `1px solid ${lightTheme.tooltipBorder}`)
+            .style('background', currentTheme.tooltipBackground)
+            .style('border', `1px solid ${currentTheme.tooltipBorder}`)
             .style('padding', '5px')
             .style('border-radius', '5px')
             .style('box-shadow', '0px 0px 10px rgba(0,0,0,0.1)')
-            .style('color', lightTheme.legendText);
+            .style('color', currentTheme.legendText);
 
         // Draw map
         svg.selectAll('path')
@@ -85,9 +96,9 @@
             .attr('d', path)
             .attr('fill', (d) => {
                 const rate = d.properties.vaccinationRate;
-                return typeof rate === 'number' ? colorScale(rate) : lightTheme.countryFillNoData;
+                return typeof rate === 'number' ? colorScale(rate) : currentTheme.countryFillNoData;
             })
-            .attr('stroke', lightTheme.border)
+            .attr('stroke', currentTheme.border)
             .attr('stroke-width', 0.5)
             .on('mouseover', (event, d) => {
                 tooltip
@@ -108,7 +119,7 @@
         const legendHeight = 20;
 
         const legendSvg = svg.append('g')
-            .attr('transform', `translate(${(width - legendWidth) / 2 - 90}, ${height - margin.bottom - 20})`);
+            .attr('transform', `translate(${(width - legendWidth) / 2 - 90}, ${height - margin.bottom + -20})`); // Centered and with margin-top of 30px
 
         // Gradient for the legend
         const defs = svg.append('defs');
@@ -141,13 +152,13 @@
             .attr('transform', `translate(0, ${legendHeight})`)
             .call(d3.axisBottom(legendScale).ticks(5).tickFormat(d => `${d}%`))
             .style('font-size', '12px')
-            .style('color', lightTheme.legendText);
+            .style('color', currentTheme.legendText);
 
         // Legend labels
         legendSvg.append('text')
             .attr('x', 0)
             .attr('y', -5)
-            .style('fill', lightTheme.legendText)
+            .style('fill', currentTheme.legendText)
             .style('font-size', '12px')
             .style('font-weight', '600')
             .text('Low Vaccination');
@@ -156,7 +167,7 @@
             .attr('x', legendWidth)
             .attr('y', -5)
             .attr('text-anchor', 'end')
-            .style('fill', lightTheme.legendText)
+            .style('fill', currentTheme.legendText)
             .style('font-size', '12px')
             .style('font-weight', '600')
             .text('High Vaccination');
@@ -164,4 +175,3 @@
 
     renderChoroplethMap();
 })();
-

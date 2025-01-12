@@ -1,0 +1,39 @@
+.section-8-role-of-government-policies-proportional-symbol-maps-tooltip {
+    position: absolute;
+    background-color: #FAFAFA; /* Material Gray 50 */
+    border: 1px solid #BDBDBD; /* Material Gray 400 */
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 10000;
+    display: none;
+}
+
+.section-8-role-of-government-policies-proportional-symbol-maps-bubble-legend-text {
+    font-size: 11px;
+    font-weight: bold;
+    fill: #212121; /* Material Gray 900 */
+}
+
+.section-8-role-of-government-policies-proportional-symbol-maps-bubble-legend-label {
+    font-size: 10px;
+    fill: #424242; /* Material Gray 800 */
+}
+
+.section-8-role-of-government-policies-proportional-symbol-maps-bubble {
+    fill: none;
+    stroke: #616161; /* Material Gray 700 */
+}
+
+.section-8-role-of-government-policies-proportional-symbol-maps-color-legend-text {
+    font-size: 11px;
+    font-weight: bold;
+    fill: #212121; /* Material Gray 900 */
+}
+
+.section-8-role-of-government-policies-proportional-symbol-maps-color-legend-label {
+    font-size: 10px;
+    fill: #424242; /* Material Gray 800 */
+}

@@ -93,33 +93,52 @@ function renderBarChart(containerId, title, chartData) {
     // X-axis
     svg.append('g')
         .attr('transform', `translate(0,${height})`)
-        .attr('class', 'section-3-vaccination-impact-stacked-bar-chart-x-axis')
-        .call(d3.axisBottom(xScale));
+        .call(d3.axisBottom(xScale))
+        .selectAll('text')
+        .attr('transform', 'rotate(-45)')
+        .style('text-anchor', 'end')
+        .style('font-size', '12px')
+        .style('fill', '#757575');
 
     // Y-axis
     svg.append('g')
-        .attr('class', 'section-3-vaccination-impact-stacked-bar-chart-y-axis')
-        .call(d3.axisLeft(yScale).ticks(10).tickFormat(d => `${d.toLocaleString()}`));
+        .call(d3.axisLeft(yScale).ticks(10).tickFormat(d => `${d.toLocaleString()}`))
+        .selectAll('text')
+        .style('font-size', '12px')
+        .style('fill', '#757575');
 
     // X-axis label
     svg.append('text')
         .attr('x', width / 2)
         .attr('y', height + margin.bottom - 40)
-        .attr('class', 'section-3-vaccination-impact-stacked-bar-chart-x-axis-label')
+        .attr('text-anchor', 'middle')
+        .style('font-size', '14px')
+        .style('font-weight', 'bold')
+        .style('fill', '#424242')
         .text('Year');
 
     // Y-axis label
     svg.append('text')
         .attr('x', -height / 2)
         .attr('y', -margin.left + 5)
+        .attr('text-anchor', 'middle')
         .attr('transform', 'rotate(-90)')
-        .attr('class', 'section-3-vaccination-impact-stacked-bar-chart-y-axis-label')
+        .style('font-size', '14px')
+        .style('font-weight', 'bold')
+        .style('fill', '#424242')
         .text('New Deaths');
 
     // Tooltip
     const tooltip = d3.select('body')
         .append('div')
-        .attr('class', 'section-3-vaccination-impact-stacked-bar-chart-tooltip');
+        .style('position', 'absolute')
+        .style('visibility', 'hidden')
+        .style('background', '#FFFFFF')
+        .style('border', '1px solid #E0E0E0')
+        .style('padding', '10px')
+        .style('border-radius', '5px')
+        .style('font-size', '12px')
+        .style('box-shadow', '0px 2px 6px rgba(0, 0, 0, 0.1)');
 
     // Bars
     svg.selectAll('.bar')
@@ -133,7 +152,6 @@ function renderBarChart(containerId, title, chartData) {
         ))
         .enter()
         .append('rect')
-        .attr('class', 'section-3-vaccination-impact-stacked-bar-chart-bar')
         .attr('x', d => xScale(d.year))
         .attr('y', d => yScale(d.value))
         .attr('width', xScale.bandwidth())
@@ -161,16 +179,21 @@ function renderBarChart(containerId, title, chartData) {
         const legendGroup = legend.append('g').attr('transform', `translate(0, ${i * 20})`);
 
         legendGroup.append('rect')
-            .attr('class', 'section-3-vaccination-impact-stacked-bar-chart-legend-rect')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', 18)
+            .attr('height', 18)
             .attr('fill', colors[i]);
 
         legendGroup.append('text')
             .attr('x', 25)
             .attr('y', 14)
-            .attr('class', 'section-3-vaccination-impact-stacked-bar-chart-legend-text')
-            .text(dataset.label);
+            .text(dataset.label)
+            .style('font-size', '12px')
+            .style('fill', '#424242');
     });
 }
+
 
 /**
  * Initializes the chart.
@@ -192,7 +215,6 @@ async function initializeVisualization() {
         labels: ['2020', '2021', '2022', '2023'],
         datasets: combinedData.map(entry => ({
             label: entry.country,
-            data: entry.year,
             data: entry.yearlyDeaths,
         })),
     };

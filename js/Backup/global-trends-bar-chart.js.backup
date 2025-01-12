@@ -75,8 +75,8 @@
             .attr('transform', `translate(0,${height})`)
             .call(d3.axisBottom(xScale))
             .selectAll('text')
-            .attr('class', 'section1-global-trends-bar-chart-x-axis-tick') // Updated tick class name
-            .attr('dy', '1em');
+            .attr('transform', 'rotate(-45)')
+            .style('text-anchor', 'end');
 
         svg.append('g')
             .call(d3.axisLeft(yScale).ticks(10).tickFormat(d => `${d}%`));
@@ -86,7 +86,9 @@
             .attr('x', width / 2)
             .attr('y', height + margin.bottom - 10)
             .attr('text-anchor', 'middle')
-            .attr('class', 'section1-global-trends-bar-chart-x-axis-label') // Updated x-axis label class name
+            .style('font-size', '12px')
+            .style('font-weight', '600')
+            .style('fill', '#333')
             .text('Regions');
 
         // Add y-axis label
@@ -95,47 +97,76 @@
             .attr('y', -margin.left + 20)
             .attr('text-anchor', 'middle')
             .attr('transform', 'rotate(-90)')
-            .attr('class', 'section1-global-trends-bar-chart-y-axis-label') // Updated y-axis label class name
+            .style('font-size', '12px')
+            .style('font-weight', '600')
+            .style('fill', '#333')
             .text('Average Vaccination (%)');
 
         // Create a tooltip
         const tooltip = d3.select('#bar-chart')
             .append('div')
-            .attr('class', 'section1-global-trends-bar-chart-tooltip'); // Updated tooltip class name
+            .style('position', 'absolute')
+            .style('background', '#fff')
+            .style('border', '1px solid #ccc')
+            .style('padding', '8px')
+            .style('border-radius', '4px')
+            .style('box-shadow', '0px 2px 6px rgba(0,0,0,0.1)')
+            .style('visibility', 'hidden')
+            .style('pointer-events', 'none')
+            .style('z-index', '10');
 
         // Add bars
+        // Add bars with hover, tooltip, and dynamic labels
         svg.selectAll('.bar')
             .data(regionalData)
             .enter()
             .append('rect')
-            .attr('class', 'section1-global-trends-bar-chart-bar') // Updated bar class name
             .attr('x', d => xScale(d.region))
             .attr('y', d => yScale(d.averageVaccination))
             .attr('width', xScale.bandwidth())
             .attr('height', d => height - yScale(d.averageVaccination))
             .attr('fill', d => colorScale(d.region))
             .on('mouseover', function (event, d) {
-                d3.select(this).classed('section1-global-trends-bar-chart-bar-hover', true); // Updated hover class name
+                d3.select(this).attr('opacity', 0.8); // Highlight the bar on hover
+                
+                // Display tooltip
                 tooltip
                     .style('visibility', 'visible')
                     .html(`<strong>${d.region}</strong><br>Average Vaccination: ${d.averageVaccination.toFixed(2)}%`);
+                
+                // Add label above the bar
                 svg.append('text')
-                    .attr('class', 'section1-global-trends-bar-chart-hover-label') // Updated hover label class name
+                    .attr('class', 'hover-label')
                     .attr('x', xScale(d.region) + xScale.bandwidth() / 2)
-                    .attr('y', yScale(d.averageVaccination) - 5)
+                    .attr('y', yScale(d.averageVaccination) - 5) // Position slightly above the bar
                     .attr('text-anchor', 'middle')
+                    .style('font-size', '12px')
+                    .style('font-weight', '600')
+                    .style('fill', '#333') // Dark color for readability
                     .text(`${d.averageVaccination.toFixed(1)}%`);
             })
             .on('mousemove', function (event) {
+                // Position tooltip dynamically
                 tooltip
                     .style('top', `${event.pageY - 40}px`)
                     .style('left', `${event.pageX + 10}px`);
             })
             .on('mouseout', function () {
-                d3.select(this).classed('section1-global-trends-bar-chart-bar-hover', false); // Updated hover class name
+                d3.select(this).attr('opacity', 1); // Reset bar opacity
+
+                // Hide tooltip
                 tooltip.style('visibility', 'hidden');
-                svg.selectAll('.section1-global-trends-bar-chart-hover-label').remove(); // Updated hover label class name
+
+                // Remove label
+                svg.selectAll('.hover-label').remove();
             });
+
+
+
+            // Ensure the tooltip is always above other elements
+            tooltip.style('pointer-events', 'none').style('z-index', '1000');
+
+
 
         // Add legend
         const legend = svg.append('g')
@@ -143,15 +174,18 @@
 
         regionalData.forEach((d, i) => {
             legend.append('rect')
-                .attr('class', 'section1-global-trends-bar-chart-legend-rect') // Updated legend rect class name
                 .attr('x', 0)
                 .attr('y', i * 20)
+                .attr('width', 12)
+                .attr('height', 12)
                 .attr('fill', colorScale(d.region));
 
             legend.append('text')
-                .attr('class', 'section1-global-trends-bar-chart-legend-text') // Updated legend text class name
                 .attr('x', 20)
                 .attr('y', i * 20 + 10)
+                .attr('text-anchor', 'start')
+                .style('font-size', '12px')
+                .style('fill', '#333')
                 .text(d.region);
         });
     }

@@ -1,0 +1,56 @@
+/* Tooltip styling for section-2-progress-over-time-stacked-area-chart */
+.section-2-progress-over-time-stacked-area-chart-tooltip {
+    position: absolute;
+    visibility: hidden;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    font-size: 12px;
+    z-index: 1000;
+}
+
+/* Path fill styling for stacked areas */
+.section-2-progress-over-time-stacked-area-chart-path {
+    fill-opacity: 1;
+    stroke: none;
+    opacity: 1;
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect for brightness */
+.section-2-progress-over-time-stacked-area-chart-path:hover {
+    opacity: 0.8; /* Slightly reduce opacity to simulate brightness */
+}
+
+/* X-axis text styling */
+.section-2-progress-over-time-stacked-area-chart-x-axis text {
+    text-anchor: end;
+    transform: rotate(-45deg);
+}
+
+/* X-axis label styling */
+.section-2-progress-over-time-stacked-area-chart-x-axis-label {
+    font-size: 14px;
+    font-weight: 600;
+    text-anchor: middle;
+}
+
+/* Y-axis label styling */
+.section-2-progress-over-time-stacked-area-chart-y-axis-label {
+    font-size: 14px;
+    font-weight: 600;
+    text-anchor: middle;
+}
+
+/* Legend styling for section-2-progress-over-time-stacked-area-chart */
+.section-2-progress-over-time-stacked-area-chart-legend {
+    font-size: 12px;
+    alignment-baseline: middle;
+}
+
+.section-2-progress-over-time-stacked-area-chart-legend-rect {
+    width: 18px;
+    height: 18px;
+}

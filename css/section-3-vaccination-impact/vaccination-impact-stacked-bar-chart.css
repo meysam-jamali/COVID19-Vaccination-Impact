@@ -1,0 +1,64 @@
+/* Tooltip styling for section-3-vaccination-impact-stacked-bar-chart */
+.section-3-vaccination-impact-stacked-bar-chart-tooltip {
+    position: absolute;
+    visibility: hidden;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* X-axis text styling */
+.section-3-vaccination-impact-stacked-bar-chart-x-axis text {
+    text-anchor: end;
+    transform: rotate(-45deg);
+    font-size: 12px;
+    fill: #757575;
+}
+
+/* Y-axis text styling */
+.section-3-vaccination-impact-stacked-bar-chart-y-axis text {
+    font-size: 12px;
+    fill: #757575;
+}
+
+/* X-axis label styling */
+.section-3-vaccination-impact-stacked-bar-chart-x-axis-label {
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+    fill: #424242;
+}
+
+/* Y-axis label styling */
+.section-3-vaccination-impact-stacked-bar-chart-y-axis-label {
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+    fill: #424242;
+}
+
+/* Bar styling for section-3-vaccination-impact-stacked-bar-chart */
+.section-3-vaccination-impact-stacked-bar-chart-bar {
+    transition: opacity 0.2s ease;
+}
+
+/* Bar hover effect */
+.section-3-vaccination-impact-stacked-bar-chart-bar:hover {
+    opacity: 0.8;
+}
+
+/* Legend rectangle styling */
+.section-3-vaccination-impact-stacked-bar-chart-legend-rect {
+    width: 18px;
+    height: 18px;
+}
+
+/* Legend text styling */
+.section-3-vaccination-impact-stacked-bar-chart-legend-text {
+    font-size: 12px;
+    fill: #424242;
+    alignment-baseline: middle;
+}

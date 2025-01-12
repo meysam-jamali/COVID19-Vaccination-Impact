@@ -74,14 +74,21 @@
         // Tooltip
         const tooltip = d3.select('body')
             .append('div')
-            .attr('class', 'section-2-progress-over-time-stacked-area-chart-tooltip');
+            .style('position', 'absolute')
+            .style('visibility', 'hidden')
+            .style('background', '#fff')
+            .style('border', '1px solid #ccc')
+            .style('padding', '8px')
+            .style('border-radius', '5px')
+            .style('box-shadow', '0px 2px 8px rgba(0, 0, 0, 0.2)')
+            .style('font-size', '12px')
+            .style('z-index', 1000);
 
         // Add paths with hover interaction
         svg.selectAll('path')
             .data(series)
             .enter()
             .append('path')
-            .attr('class', 'section-2-progress-over-time-stacked-area-chart-path')
             .attr('fill', (d) => color(d.key))
             .attr('d', d3.area()
                 .x((d) => xScale(d.data.date))
@@ -89,6 +96,7 @@
                 .y1((d) => yScale(d[1]))
             )
             .on('mouseover', function (event, d) {
+                d3.select(this).attr('opacity', 0.8); // Highlight the hovered area
                 tooltip.style('visibility', 'visible');
             })
             .on('mousemove', function (event, d) {
@@ -106,14 +114,17 @@
                     `);
             })
             .on('mouseout', function () {
+                d3.select(this).attr('opacity', 1); // Reset area opacity
                 tooltip.style('visibility', 'hidden');
             });
 
         // X-axis
         svg.append('g')
             .attr('transform', `translate(0,${height})`)
-            .attr('class', 'section-2-progress-over-time-stacked-area-chart-x-axis')
-            .call(d3.axisBottom(xScale).ticks(10).tickFormat(d3.timeFormat('%b %Y')));
+            .call(d3.axisBottom(xScale).ticks(10).tickFormat(d3.timeFormat('%b %Y')))
+            .selectAll('text')
+            .attr('transform', 'rotate(-45)')
+            .style('text-anchor', 'end');
 
         // Y-axis
         svg.append('g')
@@ -123,7 +134,9 @@
         svg.append('text')
             .attr('x', width / 2)
             .attr('y', height + 70)
-            .attr('class', 'section-2-progress-over-time-stacked-area-chart-x-axis-label')
+            .attr('text-anchor', 'middle')
+            .style('font-size', '14px')
+            .style('font-weight', '600')
             .text('Date');
 
         // Y-axis label
@@ -131,7 +144,9 @@
             .attr('transform', 'rotate(-90)')
             .attr('y', -margin.left + 30)
             .attr('x', -height / 2)
-            .attr('class', 'section-2-progress-over-time-stacked-area-chart-y-axis-label')
+            .attr('text-anchor', 'middle')
+            .style('font-size', '14px')
+            .style('font-weight', '600')
             .text('Number of Vaccinations');
 
         // Add guidance (legend) for colors
@@ -143,14 +158,18 @@
                 .attr('transform', `translate(${i * 200}, 0)`);
 
             legendGroup.append('rect')
-                .attr('class', 'section-2-progress-over-time-stacked-area-chart-legend-rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', 18)
+                .attr('height', 18)
                 .attr('fill', color(key));
 
             legendGroup.append('text')
                 .attr('x', 25)
                 .attr('y', 14)
-                .attr('class', 'section-2-progress-over-time-stacked-area-chart-legend')
-                .text(key);
+                .text(key)
+                .style('font-size', '12px')
+                .attr('alignment-baseline', 'middle');
         });
     }
 

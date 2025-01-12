@@ -1,0 +1,38 @@
+.section-9-vaccination-and-economic-recovery-scatter-plot-tooltip {
+    position: absolute;
+    background-color: #FAFAFA; /* Material Gray 50 */
+    border: 1px solid #BDBDBD; /* Material Gray 400 */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 10000;
+    display: none;
+}
+
+.section-9-vaccination-and-economic-recovery-scatter-plot-axis-text {
+    font-size: 12px;
+    fill: #424242; /* Material Gray 800 */
+}
+
+.section-9-vaccination-and-economic-recovery-scatter-plot-axis-label {
+    font-size: 14px;
+    font-weight: bold;
+    fill: #212121; /* Material Gray 900 */
+    text-anchor: middle;
+}
+
+.section-9-vaccination-and-economic-recovery-scatter-plot-legend-text {
+    font-size: 14px;
+    alignment-baseline: middle;
+}
+
+.section-9-vaccination-and-economic-recovery-scatter-plot-legend-box {
+    fill: #42A5F5; /* Material Blue 500 */
+}
+
+.section-9-vaccination-and-economic-recovery-scatter-plot-legend-line {
+    stroke: #FF5722; /* Material Deep Orange 500 */
+    stroke-width: 2;
+}

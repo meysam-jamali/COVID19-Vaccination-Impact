@@ -1,10 +1,12 @@
 (() => {
+    // console.log("Diverging Bar Chart for Gender and Health Factors Loaded!");
+
     const margin = { top: 40, right: 80, bottom: 120, left: 150 };
     const width = 800 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-    const maleSmokersColor = "section-6-gender-and-health-factors-diverging-bar-chart-bar-male"; 
-    const femaleSmokersColor = "section-6-gender-and-health-factors-diverging-bar-chart-bar-female";
+    const maleSmokersColor = "#6A1B9A"; // Purple
+    const femaleSmokersColor = "#26A69A"; // Teal
 
     // Append SVG
     const svg = d3.select("#gender-health-diverging-bar")
@@ -14,10 +16,24 @@
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    // console.log("SVG created and appended to #gender-health-diverging-bar");
+
     // Tooltip
     const genderHealthTooltip = d3.select("body")
         .append("div")
-        .attr("class", "section-6-gender-and-health-factors-diverging-bar-chart-tooltip");
+        .attr("class", "gender-health-tooltip")
+        .style("position", "absolute")
+        .style("background-color", "#FAFAFA") // Material Gray 50
+        .style("border", "1px solid #BDBDBD") // Material Gray 400
+        .style("padding", "10px")
+        .style("border-radius", "8px")
+        .style("box-shadow", "0px 4px 8px rgba(0, 0, 0, 0.15)")
+        .style("font-size", "12px")
+        .style("pointer-events", "none")
+        .style("z-index", 10000)
+        .style("display", "none");
+
+    // console.log("Tooltip created");
 
     const selectedCountries = ["USA", "BRA", "IND", "CHN", "GBR", "FRA", "DEU", "JPN", "ZAF", "RUS", "ITA", "CAN", "AUS"];
 
@@ -26,6 +42,8 @@
         d3.csv("/data/Section 5/WIID_28NOV2023.csv")
     ])
         .then(([vaccinationData]) => {
+            // console.log("Data loaded successfully");
+
             const filteredVaccinationData = vaccinationData
                 .filter(d => selectedCountries.includes(d.iso_code))
                 .map(d => ({
@@ -35,6 +53,8 @@
                     femaleSmokers: parseFloat(d.female_smokers) || 0
                 }))
                 .filter(d => d.vaccinationRate > 0);
+
+            // console.log("Filtered vaccination data:", filteredVaccinationData);
 
             const chartData = filteredVaccinationData.map(d => ({
                 country: d.country,
@@ -57,12 +77,14 @@
                 .data(chartData)
                 .enter()
                 .append("rect")
-                .attr("class", maleSmokersColor)
+                .attr("class", "bar-male")
                 .attr("x", d => xScale(d.maleSmokers))
                 .attr("y", d => yScale(d.country))
                 .attr("width", d => xScale(0) - xScale(d.maleSmokers))
                 .attr("height", yScale.bandwidth())
+                .attr("fill", maleSmokersColor)
                 .on("mouseover", (event, d) => {
+                    // console.log(`Mouse over: Male smokers for ${d.country}`);
                     genderHealthTooltip.style("display", "block")
                         .html(`
                             <strong>Country:</strong> ${d.country}<br>
@@ -71,11 +93,13 @@
                         `);
                 })
                 .on("mousemove", event => {
+                    // console.log("Tooltip moving");
                     genderHealthTooltip
                         .style("left", `${event.pageX + 15}px`)
                         .style("top", `${event.pageY - 25}px`);
                 })
                 .on("mouseout", () => {
+                    // console.log("Mouse out from male bar");
                     genderHealthTooltip.style("display", "none");
                 });
 
@@ -84,12 +108,14 @@
                 .data(chartData)
                 .enter()
                 .append("rect")
-                .attr("class", femaleSmokersColor)
+                .attr("class", "bar-female")
                 .attr("x", xScale(0))
                 .attr("y", d => yScale(d.country))
                 .attr("width", d => xScale(d.femaleSmokers) - xScale(0))
                 .attr("height", yScale.bandwidth())
+                .attr("fill", femaleSmokersColor)
                 .on("mouseover", (event, d) => {
+                    // console.log(`Mouse over: Female smokers for ${d.country}`);
                     genderHealthTooltip.style("display", "block")
                         .html(`
                             <strong>Country:</strong> ${d.country}<br>
@@ -98,13 +124,17 @@
                         `);
                 })
                 .on("mousemove", event => {
+                    // console.log("Tooltip moving");
                     genderHealthTooltip
                         .style("left", `${event.pageX + 15}px`)
                         .style("top", `${event.pageY - 25}px`);
                 })
                 .on("mouseout", () => {
+                    // console.log("Mouse out from female bar");
                     genderHealthTooltip.style("display", "none");
                 });
+
+            // console.log("Bars rendered");
 
             // Axes
             svg.append("g")
@@ -118,7 +148,8 @@
                 .attr("x", width / 2)
                 .attr("y", height + margin.bottom - 20)
                 .attr("text-anchor", "middle")
-                .attr("class", "section-6-gender-and-health-factors-diverging-bar-chart-axis-label")
+                .style("font-size", "14px")
+                .style("weight", "600")
                 .text("Smoking Prevalence (%)");
 
             svg.append("text")
@@ -126,8 +157,11 @@
                 .attr("x", -height / 2)
                 .attr("y", -margin.left + 20)
                 .attr("text-anchor", "middle")
-                .attr("class", "section-6-gender-and-health-factors-diverging-bar-chart-axis-label")
+                .style("font-size", "14px")
+                .style("weight", "600")
                 .text("Countries");
+
+            // console.log("Axes and labels added");
         })
         .catch(error => {
             console.error("Error loading or processing data:", error);

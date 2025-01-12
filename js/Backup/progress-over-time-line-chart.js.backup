@@ -57,21 +57,33 @@
         // Add line
         svg.append('path')
             .datum(cumulativeVaccinations)
-            .attr('class', 'section-2-progress-over-time-line-chart-path');
+            .attr('fill', 'none')
+            .attr('stroke', 'rgba(54, 162, 235, 1)')
+            .attr('stroke-width', 2)
+            .attr('d', line);
 
         // Add tooltip
         const tooltip = d3.select('body')
             .append('div')
-            .attr('class', 'section-2-progress-over-time-line-chart-tooltip');
+            .style('position', 'absolute')
+            .style('visibility', 'hidden')
+            .style('background', '#FAFAFA')
+            .style('border', '1px solid #E0E0E0')
+            .style('padding', '10px')
+            .style('border-radius', '8px')
+            .style('font-size', '14px') // Adjusted font size
+            .style('box-shadow', '0px 2px 6px rgba(0,0,0,0.1)');
+
 
         // Add circles for data points and tooltips
         svg.selectAll('circle')
-            .data(globalData.data)
+            .data(globalData.data) // Bind the entire global data entries
             .enter()
             .append('circle')
             .attr('cx', (d) => xScale(new Date(d.date)))
             .attr('cy', (d) => yScale(d.total_vaccinations || 0))
-            .attr('class', 'section-2-progress-over-time-line-chart-circle')
+            .attr('r', 4)
+            .attr('fill', 'rgba(54, 162, 235, 1)')
             .on('mouseover', (event, d) => {
                 const date = new Date(d.date);
                 const formattedDate = d3.timeFormat('%b %d, %Y')(date);
@@ -82,7 +94,7 @@
                         <strong>Date:</strong> ${formattedDate}<br>
                         <strong>Cumulative:</strong> ${vaccinations}
                     `);
-            })
+            })                      
             .on('mousemove', (event) => {
                 tooltip
                     .style('top', `${event.pageY - 40}px`)
@@ -92,11 +104,15 @@
                 tooltip.style('visibility', 'hidden');
             });
 
+
+
         // X-axis
         svg.append('g')
             .attr('transform', `translate(0,${height})`)
-            .attr('class', 'section-2-progress-over-time-line-chart-x-axis')
-            .call(d3.axisBottom(xScale).ticks(10).tickFormat(d3.timeFormat('%b %Y')));
+            .call(d3.axisBottom(xScale).ticks(10).tickFormat(d3.timeFormat('%b %Y')))
+            .selectAll('text')
+            .attr('transform', 'rotate(-45)')
+            .style('text-anchor', 'end');
 
         // Y-axis
         svg.append('g')
@@ -106,7 +122,9 @@
         svg.append('text')
             .attr('x', width / 2)
             .attr('y', height + 70)
-            .attr('class', 'section-2-progress-over-time-line-chart-x-axis-label')
+            .attr('text-anchor', 'middle')
+            .style('font-size', '14px')
+            .style('font-weight', 600)
             .text('Date');
 
         // Y-axis label
@@ -114,21 +132,28 @@
             .attr('transform', 'rotate(-90)')
             .attr('y', -margin.left + 25)
             .attr('x', -height / 2)
-            .attr('class', 'section-2-progress-over-time-line-chart-y-axis-label')
+            .attr('text-anchor', 'middle')
+            .style('font-size', '14px')
+            .style('font-weight', 600)
             .text('Cumulative Vaccinations');
 
         // Add guidance (legend)
         const legend = svg.append('g')
-            .attr('transform', `translate(${width - 150}, -40)`);
+            .attr('transform', `translate(${width - 150}, -40)`); // Position legend at the top-right
 
         legend.append('rect')
-            .attr('class', 'section-2-progress-over-time-line-chart-legend-rect');
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', 18)
+            .attr('height', 18)
+            .attr('fill', 'rgba(54, 162, 235, 1)');
 
         legend.append('text')
             .attr('x', 25)
             .attr('y', 14)
-            .attr('class', 'section-2-progress-over-time-line-chart-legend')
-            .text('Cumulative Vaccinations');
+            .text('Cumulative Vaccinations')
+            .style('font-size', '12px')
+            .attr('alignment-baseline', 'middle');
     }
 
     renderLineChart();

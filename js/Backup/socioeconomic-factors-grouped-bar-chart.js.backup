@@ -1,4 +1,6 @@
 (() => {
+    // console.log("Modern Grouped Bar Chart Script Loaded!");
+
     const margin = { top: 60, right: 80, bottom: 120, left: 110 };
     const width = 800 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
@@ -15,12 +17,23 @@
 
     const tooltip = d3.select("body")
         .append("div")
-        .attr("class", "section-5-socioeconomic-factors-grouped-bar-chart-tooltip");
+        .attr("class", "socioeconomic-bar-chart-tooltip")
+        .style("position", "absolute")
+        .style("background-color", "#FAFAFA")
+        .style("border", "1px solid #E0E0E0")
+        .style("padding", "10px")
+        .style("border-radius", "8px")
+        .style("box-shadow", "0 4px 10px rgba(0, 0, 0, 0.15)")
+        .style("font-size", "12px")
+        .style("display", "none")
+        .style("pointer-events", "none");
 
     const selectedCountries = ["USA", "BRA", "IND", "RUS", "CHN", "ZAF", "FRA", "DEU", "GBR", "JPN"];
 
     Promise.all([d3.csv(vaccinationDataUrl), d3.csv(socioeconomicDataUrl)])
         .then(([vaccinationData, socioeconomicData]) => {
+            // console.log("Data loaded successfully!");
+
             const filteredVaccinationData = vaccinationData
                 .filter(d => selectedCountries.includes(d.iso_code))
                 .map(d => ({
@@ -67,10 +80,9 @@
                 .attr("transform", `translate(0,${height})`)
                 .call(d3.axisBottom(xScale))
                 .selectAll("text")
-                .attr("class", "section-5-socioeconomic-factors-grouped-bar-chart-axis-text")
-                .attr("transform", "rotate(-45)") // Rotates labels by 45 degrees
-                .style("text-anchor", "end"); // Aligns text at the end
-
+                .attr("transform", "rotate(-45)")
+                .style("text-anchor", "end")
+                .style("font-size", "12px");
 
             // Y-axis (left)
             svgBarChart.append("g")
@@ -78,10 +90,12 @@
 
             // Y-axis label (left)
             svgBarChart.append("text")
-                .attr("class", "section-5-socioeconomic-factors-grouped-bar-chart-y-label")
                 .attr("transform", "rotate(-90)")
                 .attr("x", -height / 2)
                 .attr("y", -margin.left + 20)
+                .attr("text-anchor", "middle")
+                .style("font-size", "14px")
+                .style("font-weight", "600")
                 .text("Vaccination Rate (per million)");
 
             // Y-axis (right)
@@ -91,10 +105,12 @@
 
             // Y-axis label (right)
             svgBarChart.append("text")
-                .attr("class", "section-5-socioeconomic-factors-grouped-bar-chart-y-label")
                 .attr("transform", "rotate(-90)")
                 .attr("x", -height / 2)
                 .attr("y", width + margin.right - 20)
+                .attr("text-anchor", "middle")
+                .style("font-size", "14px")
+                .style("font-weight", "600")
                 .text("Gini Index");
 
             // Bars for vaccination rate
@@ -102,11 +118,12 @@
                 .data(mergedData)
                 .enter()
                 .append("rect")
-                .attr("class", "section-5-socioeconomic-factors-grouped-bar-chart-bar-vaccination")
+                .attr("class", "bar-vaccination")
                 .attr("x", d => xScale(d.country))
                 .attr("y", d => yLeftScale(d.vaccinationRate))
                 .attr("width", xScale.bandwidth() / 2)
                 .attr("height", d => height - yLeftScale(d.vaccinationRate))
+                .attr("fill", "#4CAF50")
                 .on("mouseover", (event, d) => {
                     tooltip.style("display", "block").html(`
                         <strong>Country:</strong> ${d.country}<br>
@@ -123,11 +140,12 @@
                 .data(mergedData)
                 .enter()
                 .append("rect")
-                .attr("class", "section-5-socioeconomic-factors-grouped-bar-chart-bar-gini")
+                .attr("class", "bar-gini")
                 .attr("x", d => xScale(d.country) + xScale.bandwidth() / 2)
                 .attr("y", d => yRightScale(d.giniIndex))
                 .attr("width", xScale.bandwidth() / 2)
                 .attr("height", d => height - yRightScale(d.giniIndex))
+                .attr("fill", "#FFC107")
                 .on("mouseover", (event, d) => {
                     tooltip.style("display", "block").html(`
                         <strong>Country:</strong> ${d.country}<br>
@@ -141,30 +159,34 @@
 
             // Legend
             const legend = svgBarChart.append("g")
-                .attr("transform", `translate(${width / 2 - 100},${height + 70})`);
+            .attr("transform", `translate(${width / 2 - 60},${height + 70})`); // Adjusted horizontally for margin
 
             legend.append("rect")
-                .attr("width", 20)
-                .attr("height", 20)
-                .attr("fill", "#4CAF50");
+            .attr("x", -100)
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("fill", "#4CAF50");
 
             legend.append("text")
-                .attr("x", 30)
-                .attr("y", 15)
-                .text("Vaccination Rate")
-                .style("font-size", "12px");
+            .attr("x", -70)
+            .attr("y", 15)
+            .text("Vaccination Rate")
+            .style("font-size", "14px");
 
             legend.append("rect")
-                .attr("x", 150)
-                .attr("width", 20)
-                .attr("height", 20)
-                .attr("fill", "#FFC107");
+            .attr("x", 50)  // Added 50px left margin here
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("fill", "#FFC107");
 
             legend.append("text")
-                .attr("x", 180)
-                .attr("y", 15)
-                .text("Gini Index")
-                .style("font-size", "12px");
+            .attr("x", 80)  // Adjusted to reflect the 50px margin left for Gini Index
+            .attr("y", 15)
+            .text("Gini Index")
+            .style("font-size", "14px");
+
+
+            // console.log("Grouped bar chart successfully rendered!");
         })
         .catch(error => console.error("Error processing data:", error));
 })();

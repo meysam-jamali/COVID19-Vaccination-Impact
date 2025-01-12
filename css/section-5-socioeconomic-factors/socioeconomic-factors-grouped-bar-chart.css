@@ -1,0 +1,31 @@
+.section-5-socioeconomic-factors-grouped-bar-chart-tooltip {
+    position: absolute;
+    background-color: #FAFAFA;
+    border: 1px solid #E0E0E0;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    display: none;
+    pointer-events: none;
+}
+
+.section-5-socioeconomic-factors-grouped-bar-chart-axis-text {
+    font-size: 12px;
+    text-anchor: end;
+}
+
+.section-5-socioeconomic-factors-grouped-bar-chart-y-label {
+    font-size: 14px;
+    font-weight: 600;
+    fill: #424242;
+    text-anchor: middle;
+}
+
+.section-5-socioeconomic-factors-grouped-bar-chart-bar-vaccination {
+    fill: #4CAF50;
+}
+
+.section-5-socioeconomic-factors-grouped-bar-chart-bar-gini {
+    fill: #FFC107;
+}

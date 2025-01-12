@@ -1,0 +1,32 @@
+.section-6-gender-and-health-factors-diverging-bar-chart-tooltip {
+    position: absolute;
+    background-color: #FAFAFA; /* Material Gray 50 */
+    border: 1px solid #BDBDBD; /* Material Gray 400 */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 10000;
+    display: none;
+}
+
+.section-6-gender-and-health-factors-diverging-bar-chart-axis-text {
+    font-size: 14px;
+    font-weight: 600;
+    fill: #424242; /* Material Gray 900 */
+}
+
+.section-6-gender-and-health-factors-diverging-bar-chart-axis-label {
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+.section-6-gender-and-health-factors-diverging-bar-chart-bar-male {
+    fill: #6A1B9A; /* Purple */
+}
+
+.section-6-gender-and-health-factors-diverging-bar-chart-bar-female {
+    fill: #26A69A; /* Teal */
+}
